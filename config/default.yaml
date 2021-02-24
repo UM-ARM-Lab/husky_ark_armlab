@@ -1,1 +1,2 @@
-subscriber_topic: /temperature
+# The path to the route json config to use
+route: ../config/route.json
