@@ -1,0 +1,37 @@
+{
+  "start_map": "second_floor",
+  "maps": {
+    "second_floor": {
+      "description": "Second floor of the Robotics building",
+      "next_map": "first_floor",
+      "route": [
+        {
+          "name": "ORIGIN",
+          "description": "Starting location of the robot",
+          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+        },
+        {
+          "name": "WORKBENCH",
+          "description": "Second location of the robot",
+          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+        }
+      ]
+    },
+    "first_floor": {
+      "description": "First floor of the Robotics building",
+      "next_map": null,
+      "route": [
+        {
+          "name": "ORIGIN",
+          "description": "Starting location of the robot",
+          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+        },
+        {
+          "name": "WORKBENCH",
+          "description": "Second location of the robot",
+          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+        }
+      ]
+    }
+  }
+}
