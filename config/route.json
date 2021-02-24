@@ -4,6 +4,7 @@
     "second_floor": {
       "description": "Second floor of the Robotics building",
       "next_map": "first_floor",
+      "file_path": "/var/tmp/ros/second_floor",
       "route": [
         {
           "name": "ORIGIN",
@@ -20,6 +21,7 @@
     "first_floor": {
       "description": "First floor of the Robotics building",
       "next_map": null,
+      "file_path": "/var/tmp/ros/first_floor",
       "route": [
         {
           "name": "ORIGIN",

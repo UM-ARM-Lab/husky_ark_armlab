@@ -14,6 +14,7 @@ class Map:
     def __init__(name: str, map_dict: dict):
         self.name = name
         self.next_map: str | None = map_dict["next_map"]
+        self.file_path: str = map_dict["file_path"]
         self.description: str = map_dict["description"]
         self.waypoint_poses = []
 
@@ -60,6 +61,7 @@ class Map:
         # The next_map should be a str or None (if last map)
         assert map_dict["next_map"] is None or isinstance(map_dict["next_map"], str)
         assert_key_exists("description", map_dict)
+        assert_key_exists("file_path", map_dict)
         assert_key_exists("route", map_dict)
         Map.validate_map_route(map_dict["route"])
 
@@ -102,8 +104,26 @@ class Route:
 
         for map_name, map_dict in route_data["maps"].items():
             self.maps[map_name] = Map(map_name, map_dict)
-        
+
         self.current_map = self.maps[self.start_map_key]
+
+    def load_next_map(self):
+        import rospy
+        from ark_bridge.msg import String, Result
+
+        # Update the map
+        self.current_map = self.maps[self.current_map.next_map]
+
+        load_map_service = rospy.ServiceProxy("map_data_load_map_from_disk", String)
+
+        load_map_response = load_map_service(self.current_map.file_path)
+
+        if load_map_response.ark_service_timeout:
+            assert (
+                False
+            ), "Tried to load map at {} and timed out. Response data: {}".format(
+                self.current_map.file_path, load_map_response.res_data
+            )
 
     def get_next_waypoint(self):
         if self.current_map.is_complete():
@@ -111,16 +131,15 @@ class Route:
 
             if self.current_map.is_final_map():
                 # If this map is the final map, the path is complete
-                print("Finished the final map")
+                print("Finished the final map: {}".format(self.current_map.name))
                 return None
-            
-            # Update the map
-            self.current_map = self.maps[self.current_map.next_map]
-    
+
+            self.load_next_map()
+
         return self.current_map.get_next_waypoint()
 
     def is_complete(self):
-        return self.current_map.
+        return self.current_map.is_complete()
 
     @classmethod
     def validate_route_json(cls, route_json_path: str):
