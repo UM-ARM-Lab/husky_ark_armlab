@@ -13,7 +13,7 @@
   <node pkg="rosservice" type="rosservice" name="rosservice" args="call --wait /ark_bridge/start_autonomy 'req_data: {}'" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
 
   <!-- Launch the custom husky_ark node -->
-  <node pkg="husky_ark_armlab" type="husky_ark_armlab" name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+  <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
     <rosparam command="load" file="$(dirname)/../config/default.yaml" />
   </node>
 </launch>

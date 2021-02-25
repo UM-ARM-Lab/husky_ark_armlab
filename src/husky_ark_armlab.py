@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from ark_bridge.msg import SendGoal
 from ark_bridge.msg import GoalStatusArray
 import actionlib_msgs
