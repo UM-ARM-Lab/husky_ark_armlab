@@ -2,7 +2,9 @@
   <!-- We want to wait for the ARK to start up, so we don't run right away -->
   <arg name="node_start_delay" default="10.0" />  
 
-  <include file="$(dirname)/realsense_laser_scan.launch" />
+  <!-- For using the RealSense (untested)
+    <include file="$(dirname)/realsense_laser_scan.launch" />
+  -->
 
   <!-- Start the ARK navigation server -->
   <include file="$(find husky_cpr_ark_navigation)/launch/husky_ark_navigation.launch" />
@@ -11,7 +13,7 @@
   <node pkg="rosservice" type="rosservice" name="rosservice" args="call --wait /ark_bridge/start_autonomy 'req_data: {}'" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
 
   <!-- Launch the custom husky_ark node -->
-  <node pkg="husky_ark" type="husky_ark" name="husky_ark" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+  <node pkg="husky_ark_armlab" type="husky_ark_armlab" name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
     <rosparam command="load" file="$(dirname)/../config/default.yaml" />
   </node>
 </launch>
