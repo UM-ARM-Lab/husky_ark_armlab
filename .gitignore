@@ -123,6 +123,9 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
+### VSCode ###
+.vscode
+
 ### Linux ###
 *~
 
@@ -165,3 +168,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Python
+__pycache__
