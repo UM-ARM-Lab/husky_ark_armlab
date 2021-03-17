@@ -4,24 +4,47 @@
     "second_floor": {
       "description": "Second floor of the Robotics building",
       "next_map": "first_floor",
-      "file_path": "/var/tmp/ros/second_floor",
       "route": [
         {
-          "name": "ORIGIN",
-          "description": "Starting location of the robot",
-          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+          "name": "origin",
+          "description": "Starting location of the robot inside lab",
+          "x": 0,
+          "y": 0,
+          "euler_angle": 0
         },
         {
-          "name": "WORKBENCH",
-          "description": "Second location of the robot",
-          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+          "name": "outside-lab-balcony",
+          "description": "A little away from the door so the robot can navigate out",
+          "x": -4.191,
+          "y": -8.418,
+          "euler_angle": 134
+        },
+        {
+          "name": "second-floor-towards-elevator",
+          "description": "Second floor balcony towards hallway",
+          "x": -8.774,
+          "y": -3.77,
+          "euler_angle": 222
+        },
+        {
+          "name": "second-floor-elevator-waiting",
+          "description": "Second floor waiting position for elevator",
+          "x": 4.901,
+          "y": 12.723,
+          "euler_angle": 222
+        },
+        {
+          "name": "second-floor-inside-elevator",
+          "description": "Second floor waiting position for elevator",
+          "x": 6.708,
+          "y": 14.587,
+          "euler_angle": 42
         }
       ]
     },
     "first_floor": {
       "description": "First floor of the Robotics building",
       "next_map": null,
-      "file_path": "/var/tmp/ros/first_floor",
       "route": [
         {
           "name": "ORIGIN",

@@ -3,23 +3,29 @@ import os
 import argparse
 import argparse
 import typing
-from .pose import Pose
+from pose import Pose
 
 
 def assert_key_exists(key: str, data_dict: dict):
     assert key in data_dict, "{} is required".format(key)
 
+def is_number(x):
+    return isinstance(x, int) or isinstance(x, float)
 
 class Map:
     def __init__(name: str, map_dict: dict):
         self.name = name
         self.next_map: str | None = map_dict["next_map"]
-        self.file_path: str = map_dict["file_path"]
         self.description: str = map_dict["description"]
         self.waypoint_poses = []
 
         for waypoint_dict in map_dict["route"]:
-            pose = Pose(waypoint_dict["name"], *waypoint_dict["pose"])
+            pose = Pose.pose_from_xy_euler(
+                waypoint_dict["name"],
+                waypoint_dict["x"],
+                waypoint_dict["y"],
+                waypoint_dict["euler_angle"]
+            )
             self.waypoint_poses.append(pose)
 
         self.current_waypoint_idx = -1
@@ -61,7 +67,6 @@ class Map:
         # The next_map should be a str or None (if last map)
         assert map_dict["next_map"] is None or isinstance(map_dict["next_map"], str)
         assert_key_exists("description", map_dict)
-        assert_key_exists("file_path", map_dict)
         assert_key_exists("route", map_dict)
         Map.validate_map_route(map_dict["route"])
 
@@ -73,15 +78,15 @@ class Map:
             assert isinstance(waypoint_dict, dict)
             assert_key_exists("name", waypoint_dict)
             assert_key_exists("description", waypoint_dict)
-            assert_key_exists("pose", waypoint_dict)
+            assert_key_exists("x", waypoint_dict)
+            assert_key_exists("y", waypoint_dict)
+            assert_key_exists("euler_angle", waypoint_dict)
 
             assert isinstance(waypoint_dict["name"], str)
             assert isinstance(waypoint_dict["description"], str)
-            assert isinstance(waypoint_dict["pose"], list)
-
-            assert (
-                len(waypoint_dict["pose"]) == 7
-            ), "Waypoint {} pose should have 7 values".format(waypoint_dict["name"])
+            assert is_number(waypoint_dict["x"])
+            assert is_number(waypoint_dict["y"])
+            assert is_number(waypoint_dict["euler_angle"])
 
 
 class Route:
@@ -116,13 +121,13 @@ class Route:
 
         load_map_service = rospy.ServiceProxy("map_data_load_map_from_disk", String)
 
-        load_map_response = load_map_service(self.current_map.file_path)
+        load_map_response = load_map_service(self.current_map.name)
 
         if load_map_response.ark_service_timeout:
             assert (
                 False
             ), "Tried to load map at {} and timed out. Response data: {}".format(
-                self.current_map.file_path, load_map_response.res_data
+                self.current_map.name, load_map_response.res_data
             )
 
     def get_next_waypoint(self):
