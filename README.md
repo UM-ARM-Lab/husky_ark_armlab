@@ -6,6 +6,11 @@ You can use the ARK GUI to find the XY, theta positions of the different waypoin
 You can then use https://quaternions.online/ to convert from Euler angle (with respect
 to the z-axis) to a quaternion.
 
+## You may need to export the Python path before running
+```
+export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages
+```
+
 ## Overview
 
 This is a template: replace, remove, and add where required. Describe here what this package does and what it's meant for in a few sentences.
