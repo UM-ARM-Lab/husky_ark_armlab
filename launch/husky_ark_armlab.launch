@@ -1,6 +1,6 @@
 <launch>
   <!-- We want to wait for the ARK to start up, so we don't run right away -->
-  <arg name="node_start_delay" default="10.0" />  
+  <arg name="node_start_delay" default="4.0" />  
 
   <!-- For using the RealSense (untested)
     <include file="$(dirname)/realsense_laser_scan.launch" />
