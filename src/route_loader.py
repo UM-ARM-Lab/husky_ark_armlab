@@ -67,7 +67,7 @@ class Map:
         Returns:
             bool: whether all the waypoints for this map have been reached
         """
-        return self.current_waypoint_idx == len(self.route) - 1
+        return self.current_waypoint_idx == len(self.waypoint_poses) - 1
 
     def is_final_map(self):
         """Checks to see if this map is the final map of the route
@@ -75,7 +75,7 @@ class Map:
         Returns:
             bool: True if next_map is None. False otherwise.
         """
-        return self.next_map == None
+        return self.next_map is None
 
     @staticmethod
     def validate_map(map_dict):
@@ -124,7 +124,7 @@ class Route:
         Args:
             route_json_path (str): the path to the route JSON configuration
         """
-        Route.validate_route_json(route_json_path)
+        route_data = Route.validate_route_json(route_json_path)
 
         # We can now assume that the map JSON is valid
 
@@ -133,7 +133,7 @@ class Route:
 
         # Map type
         self.current_map = None
-        self.load_route(route_json_path)
+        # self.load_route(route_json_path)
 
         for map_name, map_dict in route_data["maps"].items():
             self.maps[map_name] = Map(map_name, map_dict)
@@ -169,7 +169,7 @@ class Route:
 
             self.load_next_map()
 
-        return self.current_map.get_next_waypoint()
+        return self.current_map.move_to_next_waypoint()
 
     def is_complete(self):
         return self.current_map.is_complete()
@@ -180,6 +180,9 @@ class Route:
 
         Args:
             route_json_path ([type]): [description]
+
+        Returns:
+            (dict): route data dictionary
         """
         assert os.path.isfile(route_json_path), "Route JSON not found: {}".format(
             route_json_path
@@ -200,6 +203,8 @@ class Route:
 
         for map_key, map_dict in route_data["maps"].items():
             Map.validate_map(map_dict)
+        
+        return route_data
 
 
 def main(route_json_path, validate):
