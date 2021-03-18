@@ -3,7 +3,7 @@ import os
 import argparse
 import argparse
 from pose import Pose
-
+import yaml
 
 def assert_key_exists(key, data_dict):
     """[summary]
@@ -18,7 +18,7 @@ def is_number(x):
     return isinstance(x, int) or isinstance(x, float)
 
 class Map:
-    def __init__(name, map_dict):
+    def __init__(self, name, map_dict):
         """[summary]
 
         Args:
@@ -118,7 +118,7 @@ class Map:
 class Route:
     """A class to handle interacting with Routes"""
 
-    def __init__(route_json_path):
+    def __init__(self, route_json_path):
         """Create a new Route instance
 
         Args:
@@ -186,7 +186,10 @@ class Route:
         )
 
         with open(route_json_path) as f:
-            route_data = json.load(f)
+            # Need to use yaml instead of JSON to avoid issues with
+            # strings being converted into unicode
+            # See: https://stackoverflow.com/a/16373377/6942666
+            route_data = yaml.safe_load(f)
 
         assert_key_exists("start_map", route_data)
         assert_key_exists("maps", route_data)

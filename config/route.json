@@ -49,12 +49,16 @@
         {
           "name": "ORIGIN",
           "description": "Starting location of the robot",
-          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+          "x": 0,
+          "y": 0,
+          "euler_angle": 0
         },
         {
           "name": "WORKBENCH",
           "description": "Second location of the robot",
-          "pose": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+          "x": 0,
+          "y": 0,
+          "euler_angle": 0
         }
       ]
     }
