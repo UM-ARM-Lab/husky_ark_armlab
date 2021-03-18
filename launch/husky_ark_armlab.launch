@@ -1,6 +1,7 @@
 <launch>
   <!-- We want to wait for the ARK to start up, so we don't run right away -->
   <arg name="node_start_delay" default="4.0" />  
+  <arg name="route" default="$(dirname)/../config/route.json"/>
 
   <!-- For using the RealSense (untested)
     <include file="$(dirname)/realsense_laser_scan.launch" />
@@ -10,7 +11,9 @@
   <include file="$(find husky_cpr_ark_navigation)/launch/husky_ark_navigation.launch" />
 
   <!-- Launch the custom husky_ark node -->
-  <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
-    <rosparam command="load" file="$(dirname)/../config/default.yaml" />
+  <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" 
+    name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "
+    args="--route $(arg route)">
+      <rosparam command="load" file="$(dirname)/../config/default.yaml" />
   </node>
 </launch>

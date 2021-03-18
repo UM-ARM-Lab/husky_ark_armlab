@@ -70,5 +70,5 @@ if __name__ == "__main__":
     ap.add_argument(
         "-r", "--route", type=str, required=True, help="The path to the route JSON"
     )
-    args = vars(ap.parse_args())
+    args = vars(ap.parse_args(rospy.myargv()[1:]))
     main(args["route"])
