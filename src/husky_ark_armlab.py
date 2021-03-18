@@ -27,6 +27,11 @@ def path_planner_status_callback(msg: GoalStatusArray):
 
 
 def main(route_json_path):
+    # Start autonomy
+    while not ARK.start_autonomy():
+        print("Failed to start autonomy. Retrying in 3 seconds...")
+        time.sleep(3)
+
     route = Route(route_json_path)
 
     # Start a ROS node called "PositionCommander"
