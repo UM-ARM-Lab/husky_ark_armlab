@@ -1,4 +1,5 @@
-from scipy.spatial.transform import Rotation
+from euler_to_quaternion import euler_to_quaternion
+
 
 class Pose:
     """This is a simple class for making the end code cleaner"""
@@ -36,11 +37,8 @@ class Pose:
         Returns:
             Pose: a new Pose object
         """
-        # Create a rotation object from Euler angles specifying axes of rotation
-        rotation = Rotation.from_euler('xyz', [0, 0, euler_angle], degrees=True)
-
-        # Convert to quaternions and print
-        rotation_quaternion = rotation.as_quat()
+        # Convert to quaternion [x, y, z, w] from Euler angles specifying axes of rotation
+        rotation_quaternion = euler_to_quaternion(0, 0, euler_angle, degrees=True)
 
         return Pose(
             name,
