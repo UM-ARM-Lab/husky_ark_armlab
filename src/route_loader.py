@@ -2,21 +2,36 @@ import json
 import os
 import argparse
 import argparse
-import typing
 from pose import Pose
 
 
-def assert_key_exists(key: str, data_dict: dict):
+def assert_key_exists(key, data_dict):
+    """[summary]
+
+    Args:
+        key (str): [description]
+        data_dict (dict): [description]
+    """
     assert key in data_dict, "{} is required".format(key)
 
 def is_number(x):
     return isinstance(x, int) or isinstance(x, float)
 
 class Map:
-    def __init__(name: str, map_dict: dict):
+    def __init__(name, map_dict):
+        """[summary]
+
+        Args:
+            name (str): [description]
+            map_dict (dict): [description]
+        """
         self.name = name
-        self.next_map: str | None = map_dict["next_map"]
-        self.description: str = map_dict["description"]
+
+        # str | None
+        self.next_map = map_dict["next_map"]
+
+        # str | None
+        self.description = map_dict["description"]
         self.waypoint_poses = []
 
         for waypoint_dict in map_dict["route"]:
@@ -62,16 +77,27 @@ class Map:
         """
         return self.next_map == None
 
-    @classmethod
-    def validate_map(cls, map_dict: dict):
+    @staticmethod
+    def validate_map(map_dict):
+        """[summary]
+
+        Args:
+            map_dict (dict): [description]
+        """
+
         # The next_map should be a str or None (if last map)
         assert map_dict["next_map"] is None or isinstance(map_dict["next_map"], str)
         assert_key_exists("description", map_dict)
         assert_key_exists("route", map_dict)
         Map.validate_map_route(map_dict["route"])
 
-    @classmethod
-    def validate_map_route(cls, route_list: list):
+    @staticmethod
+    def validate_map_route(route_list):
+        """[summary]
+
+        Args:
+            route_list (list): [description]
+        """
         assert isinstance(route_list, list)
 
         for waypoint_dict in route_list:
@@ -92,7 +118,7 @@ class Map:
 class Route:
     """A class to handle interacting with Routes"""
 
-    def __init__(route_json_path: str):
+    def __init__(route_json_path):
         """Create a new Route instance
 
         Args:
@@ -104,7 +130,9 @@ class Route:
 
         self.maps = {}
         self.start_map_key = route_data["start_map"]
-        self.current_map: Map = None
+
+        # Map type
+        self.current_map = None
         self.load_route(route_json_path)
 
         for map_name, map_dict in route_data["maps"].items():
@@ -146,8 +174,13 @@ class Route:
     def is_complete(self):
         return self.current_map.is_complete()
 
-    @classmethod
-    def validate_route_json(cls, route_json_path: str):
+    @staticmethod
+    def validate_route_json(route_json_path):
+        """[summary]
+
+        Args:
+            route_json_path ([type]): [description]
+        """
         assert os.path.isfile(route_json_path), "Route JSON not found: {}".format(
             route_json_path
         )
@@ -166,7 +199,13 @@ class Route:
             Map.validate_map(map_dict)
 
 
-def main(route_json_path: str, validate: bool):
+def main(route_json_path, validate):
+    """[summary]
+
+    Args:
+        route_json_path (str): [description]
+        validate (bool): [description]
+    """
     if validate:
         Route.validate_route_json(route_json_path)
         print("The route is correctly configured")

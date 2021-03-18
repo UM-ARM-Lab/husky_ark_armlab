@@ -1,18 +1,19 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 from ark_bridge.msg import SendGoal
 from ark_bridge.msg import GoalStatusArray
 import actionlib_msgs
 import time
 import rospy
 import argparse
-from .route_loader import Route
-from .pose import Pose
+from route_loader import Route
+from pose import Pose
+from ark_interface import ARK
 
 tracking_goal = True
 
 
-def path_planner_status_callback(msg: GoalStatusArray):
-    """This keeps track of the ARK’s status and if it is tracking a goal or awaiting a new goal.
+def path_planner_status_callback(msg):
+    """This keeps track of the ARK's status and if it is tracking a goal or awaiting a new goal.
     The ark will maintain a list of current objectives and their status using this topic.
 
     Args:
@@ -47,7 +48,7 @@ def main(route_json_path):
 
     # Loop through the positions in our list one at a time
     while not route.is_complete():
-        next_pose: Pose = route.get_next_waypoint()
+        next_pose = route.get_next_waypoint()
 
         rospy.loginfo("Moving to " + next_pose.name)
 

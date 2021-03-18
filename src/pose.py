@@ -6,23 +6,23 @@ class Pose:
 
     def __init__(
         self,
-        name: str,
-        x: float,
-        y: float,
-        z: float,
-        q1: float,
-        q2: float,
-        q3: float,
-        q4: float,
+        name,
+        x,
+        y,
+        z,
+        q1,
+        q2,
+        q3,
+        q4,
     ):
-        self.name: string = name
-        self.x: float = x
-        self.y: float = y
-        self.z: float = z
-        self.q1: float = q1
-        self.q2: float = q2
-        self.q3: float = q3
-        self.q4: float = q4
+        self.name = name
+        self.x = x
+        self.y = y
+        self.z = z
+        self.q1 = q1
+        self.q2 = q2
+        self.q3 = q3
+        self.q4 = q4
 
     @classmethod
     def pose_from_xy_euler(cls, name, x, y, euler_angle):
