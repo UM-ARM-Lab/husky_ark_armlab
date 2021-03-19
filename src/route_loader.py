@@ -171,7 +171,7 @@ class Route:
         return self.current_map.move_to_next_waypoint()
 
     def is_complete(self):
-        return self.current_map.is_complete()
+        return self.current_map.is_final_map() and self.current_map.is_complete() 
 
     @staticmethod
     def validate_route_json(route_json_path):
