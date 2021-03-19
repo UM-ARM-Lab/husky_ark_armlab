@@ -5,6 +5,7 @@ import argparse
 from pose import Pose
 import yaml
 from ark_interface import ARK
+import rospy
 
 def assert_key_exists(key, data_dict):
     """[summary]
@@ -141,21 +142,26 @@ class Route:
 
         self.current_map = self.maps[self.start_map_key]
 
-    def load_next_map(self):
-        import rospy
-        from ark_bridge.msg import String, Result
+        # Load the initial map
+        success = ARK.load_map(self.current_map.name)
 
+        if success:
+           rospy.loginfo("Initial map loaded: {}".format(self.current_map.name))
+        else:
+            rospy.logfatal("Unable to load initial map")        
+
+    def load_next_map(self):
         # Update the map
         self.current_map = self.maps[self.current_map.next_map]
 
         success = ARK.load_map(self.current_map.name)
 
+        
+
         if not success:
-            assert (
-                False
-            ), "Tried to load map {} and timed out".format(
+            rospy.logerr("Tried to load map {} and timed out".format(
                 self.current_map.name
-            )
+            ))
 
     def get_next_waypoint(self):
         if self.current_map.is_complete():
