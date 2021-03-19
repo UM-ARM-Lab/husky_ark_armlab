@@ -64,6 +64,9 @@ def main(route_json_path):
 
         rospy.loginfo("Done")
 
+    # stop autonomy once the goal is reached
+    ARK.stop_autonomy()
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

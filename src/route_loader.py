@@ -4,6 +4,7 @@ import argparse
 import argparse
 from pose import Pose
 import yaml
+from ark_interface import ARK
 
 def assert_key_exists(key, data_dict):
     """[summary]
@@ -147,15 +148,13 @@ class Route:
         # Update the map
         self.current_map = self.maps[self.current_map.next_map]
 
-        load_map_service = rospy.ServiceProxy("map_data_load_map_from_disk", String)
+        success = ARK.load_map(self.current_map.name)
 
-        load_map_response = load_map_service(self.current_map.name)
-
-        if load_map_response.ark_service_timeout:
+        if not success:
             assert (
                 False
-            ), "Tried to load map at {} and timed out. Response data: {}".format(
-                self.current_map.name, load_map_response.res_data
+            ), "Tried to load map {} and timed out".format(
+                self.current_map.name
             )
 
     def get_next_waypoint(self):
