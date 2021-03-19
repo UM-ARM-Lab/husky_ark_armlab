@@ -1,9 +1,9 @@
 {
-  "start_map": "second_floor",
+  "start_map": "top-floor-robotics",
   "maps": {
-    "second_floor": {
+    "top-floor-robotics": {
       "description": "Second floor of the Robotics building",
-      "next_map": "first_floor",
+      "next_map": "bottom-floor",
       "route": [
         {
           "name": "origin",
@@ -42,23 +42,72 @@
         }
       ]
     },
-    "first_floor": {
+    "bottom-floor": {
       "description": "First floor of the Robotics building",
       "next_map": null,
       "route": [
         {
-          "name": "ORIGIN",
+          "name": "bottom-floor-inside-elevator",
           "description": "Starting location of the robot",
-          "x": 0,
-          "y": 0,
-          "euler_angle": 0
+          "x": 2.548,
+          "y": 0.388,
+          "euler_angle": 4
         },
         {
-          "name": "WORKBENCH",
-          "description": "Second location of the robot",
-          "x": 0,
-          "y": 0,
-          "euler_angle": 0
+          "name": "bottom-floor-elevator-to-hallway",
+          "description": "Near the elevator facing towards the atrium",
+          "x": -2.874,
+          "y": -2.85,
+          "euler_angle": 5
+        },
+        {
+          "name": "bottom-floor-between-side-doors",
+          "description": "Between sets of side-doors",
+          "x": -3.87,
+          "y": 14.064,
+          "euler_angle": 275
+        },
+        {
+          "name": "bottom-floor-elevator-to-hallway",
+          "description": "Near the elevator facing towards the atrium",
+          "x": -2.874,
+          "y": -2.85,
+          "euler_angle": 5
+        },
+        {
+          "name": "bottom-floor-atrium-hallway-opening",
+          "description": "Opening from atrium to elevator hallway",
+          "x": -20.986,
+          "y": -3.682,
+          "euler_angle": 310
+        },
+        {
+          "name": "bottom-floor-facing-doors",
+          "description": "Opening from atrium to elevator hallway",
+          "x": -36.638,
+          "y": 12.594,
+          "euler_angle": 309
+        },
+        {
+          "name": "bottom-floor-atrium-hallway-opening",
+          "description": "Opening from atrium to elevator hallway",
+          "x": -20.986,
+          "y": -3.682,
+          "euler_angle": 310
+        },
+        {
+          "name": "bottom-floor-elevator-to-hallway",
+          "description": "Near the elevator facing towards the atrium",
+          "x": -2.874,
+          "y": -2.85,
+          "euler_angle": 5
+        },
+        {
+          "name": "bottom-floor-inside-elevator",
+          "description": "Starting location of the robot",
+          "x": 2.548,
+          "y": 0.388,
+          "euler_angle": 4
         }
       ]
     }
