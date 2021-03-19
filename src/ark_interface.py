@@ -1,5 +1,6 @@
 import rospy
 from ark_bridge.srv import Empty_service, Empty_serviceRequest, LoadMapFromDisk_service, LoadMapFromDisk_serviceRequest, SaveMapToDisk_service, SaveMapToDisk_serviceRequest
+import time
 
 DEFAULT_TIMEOUT_SEC = 3
 
@@ -38,7 +39,17 @@ class ARK:
     def load_map(map_name):
         request = LoadMapFromDisk_serviceRequest()
         request.req_data.data = map_name
-        return ARK.call_service('/ark_bridge/map_data_load_map_from_disk', LoadMapFromDisk_service, request)
+
+        success = False
+        attempts = 0
+
+        while not success and attempts < 4:
+            success = ARK.call_service('/ark_bridge/map_data_load_map_from_disk', LoadMapFromDisk_service, request)
+            time.sleep(1)
+            attempts += 1
+
+        time.sleep(5)
+        return success
 
     @staticmethod
     def save_map(map_name):
