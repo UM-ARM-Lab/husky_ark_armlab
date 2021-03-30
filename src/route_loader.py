@@ -40,6 +40,10 @@ class Map:
         self.waypoint_poses = []
 
         for waypoint_dict in map_dict["route"]:
+            # Skip over any waypoints marked with "skip": true
+            if "skip" in waypoint_dict and waypoint_dict["skip"]:
+                continue
+
             pose = Pose.pose_from_xy_euler(
                 waypoint_dict["name"],
                 waypoint_dict["x"],
