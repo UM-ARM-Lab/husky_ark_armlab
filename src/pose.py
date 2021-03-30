@@ -51,7 +51,6 @@ class Pose:
             q4 = rotation_quaternion[3]
         )
 
-
     def ark_pose(self):
         """Returns a ROS message to send to the ark
 

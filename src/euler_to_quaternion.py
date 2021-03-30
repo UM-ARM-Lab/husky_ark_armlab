@@ -19,9 +19,9 @@ def euler_to_quaternion(roll, pitch, yaw, degrees=True):
       (list): Quaternions of form [x, y, z, w]
     """
     if degrees:
-        roll  *= deg2rad
+        roll *= deg2rad
         pitch *= deg2rad
-        yaw   *= deg2rad
+        yaw *= deg2rad
 
     cy = cos(yaw * 0.5)
     sy = sin(yaw * 0.5)

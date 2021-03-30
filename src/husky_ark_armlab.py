@@ -11,13 +11,14 @@ from ark_interface import ARK
 
 tracking_goal = True
 
+
 class RAII_ARK:
     def __init__(self):
         # Start autonomy
         while not ARK.start_autonomy():
             rospy.loginfo("Failed to start autonomy. Retrying in 3 seconds...")
             time.sleep(3)
-    
+
     def __del__(self):
         ARK.stop_autonomy()
 

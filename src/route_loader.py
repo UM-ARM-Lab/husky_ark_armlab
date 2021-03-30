@@ -7,6 +7,7 @@ import yaml
 from ark_interface import ARK
 import rospy
 
+
 def assert_key_exists(key, data_dict):
     """[summary]
 
@@ -16,8 +17,10 @@ def assert_key_exists(key, data_dict):
     """
     assert key in data_dict, "{} is required".format(key)
 
+
 def is_number(x):
     return isinstance(x, int) or isinstance(x, float)
+
 
 class Map:
     def __init__(self, name, map_dict):
@@ -146,17 +149,15 @@ class Route:
         success = ARK.load_map(self.current_map.name)
 
         if success:
-           rospy.loginfo("Initial map loaded: {}".format(self.current_map.name))
+            rospy.loginfo("Initial map loaded: {}".format(self.current_map.name))
         else:
-            rospy.logfatal("Unable to load initial map")        
+            rospy.logfatal("Unable to load initial map")
 
     def load_next_map(self):
         # Update the map
         self.current_map = self.maps[self.current_map.next_map]
 
         success = ARK.load_map(self.current_map.name)
-
-        
 
         if not success:
             rospy.logerr("Tried to load map {} and timed out".format(
@@ -177,7 +178,7 @@ class Route:
         return self.current_map.move_to_next_waypoint()
 
     def is_complete(self):
-        return self.current_map.is_final_map() and self.current_map.is_complete() 
+        return self.current_map.is_final_map() and self.current_map.is_complete()
 
     @staticmethod
     def validate_route_json(route_json_path):
@@ -208,7 +209,7 @@ class Route:
 
         for map_key, map_dict in route_data["maps"].items():
             Map.validate_map(map_dict)
-        
+
         return route_data
 
 
