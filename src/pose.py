@@ -70,3 +70,18 @@ class Pose:
         msg.position_tolerance = 0.1
         msg.orientation_tolerance = 0.1
         return msg
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        return "{}: X: {}, Y: {}, Quaternion: [{}, {}, {}, {}]".format(
+            self.name,
+            self.x,
+            self.y,
+            self.z,
+            self.q1,
+            self.q2,
+            self.q3,
+            self.q4
+        )
