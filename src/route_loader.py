@@ -127,12 +127,14 @@ class Map:
 class Route:
     """A class to handle interacting with Routes"""
 
-    def __init__(self, route_json_path):
+    def __init__(self, route_json_path, dry_run=False):
         """Create a new Route instance
 
         Args:
             route_json_path (str): the path to the route JSON configuration
+            dry_run (bool): if true, won't send commands to ARK
         """
+        self.dry_run = dry_run
         route_data = Route.validate_route_json(route_json_path)
 
         # We can now assume that the map JSON is valid
@@ -142,12 +144,14 @@ class Route:
 
         # Map type
         self.current_map = None
-        # self.load_route(route_json_path)
 
         for map_name, map_dict in route_data["maps"].items():
             self.maps[map_name] = Map(map_name, map_dict)
 
         self.current_map = self.maps[self.start_map_key]
+
+        if self.dry_run:
+            return
 
         # Load the initial map
         success = ARK.load_map(self.current_map.name)
@@ -160,6 +164,9 @@ class Route:
     def load_next_map(self):
         # Update the map
         self.current_map = self.maps[self.current_map.next_map]
+
+        if self.dry_run:
+            return
 
         success = ARK.load_map(self.current_map.name)
 
@@ -189,7 +196,7 @@ class Route:
         """[summary]
 
         Args:
-            route_json_path ([type]): [description]
+            route_json_path (str): path to the JSON file for the route
 
         Returns:
             (dict): route data dictionary
