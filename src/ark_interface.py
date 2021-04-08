@@ -1,6 +1,12 @@
 import rospy
-from ark_bridge.srv import Empty_service, Empty_serviceRequest, LoadMapFromDisk_service, LoadMapFromDisk_serviceRequest, SaveMapToDisk_service, SaveMapToDisk_serviceRequest
-import time
+from ark_bridge.srv import (
+    Empty_service,
+    Empty_serviceRequest,
+    LoadMapFromDisk_service,
+    LoadMapFromDisk_serviceRequest,
+    SaveMapToDisk_service,
+    SaveMapToDisk_serviceRequest,
+)
 
 DEFAULT_TIMEOUT_SEC = 3
 
@@ -29,11 +35,11 @@ class ARK:
 
     @staticmethod
     def start_autonomy():
-        return ARK.call_service('/ark_bridge/start_autonomy')
+        return ARK.call_service("/ark_bridge/start_autonomy")
 
     @staticmethod
     def stop_autonomy():
-        return ARK.call_service('/ark_bridge/stop_autonomy')
+        return ARK.call_service("/ark_bridge/stop_autonomy")
 
     @staticmethod
     def load_map(map_name):
@@ -44,11 +50,15 @@ class ARK:
         attempts = 0
 
         while not success and attempts < 4:
-            success = ARK.call_service('/ark_bridge/map_data_load_map_from_disk', LoadMapFromDisk_service, request)
-            time.sleep(1)
+            success = ARK.call_service(
+                "/ark_bridge/map_data_load_map_from_disk",
+                LoadMapFromDisk_service,
+                request,
+            )
+            rospy.sleep(1)
             attempts += 1
 
-        time.sleep(5)
+        rospy.sleep(5)
         return success
 
     @staticmethod
@@ -56,7 +66,10 @@ class ARK:
         request = SaveMapToDisk_serviceRequest()
         request.req_data.map_topic = "/slam/map"
         request.req_data.filename = map_name
-        return ARK.call_service('/ark_bridge/map_data_save_map_to_disk', SaveMapToDisk_service, request)
+        return ARK.call_service(
+            "/ark_bridge/map_data_save_map_to_disk", SaveMapToDisk_service, request
+        )
+
 
 if __name__ == "__main__":
     print("Success", ARK.stop_autonomy())
