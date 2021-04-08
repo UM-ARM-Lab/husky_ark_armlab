@@ -2,12 +2,12 @@
 from ark_bridge.msg import SendGoal
 from ark_bridge.msg import GoalStatusArray
 import actionlib_msgs
-import time
 import rospy
 import argparse
 from route_loader import Route
 from pose import Pose
 from ark_interface import ARK
+from keyboard_input import KeyboardInput
 
 tracking_goal = True
 
@@ -17,7 +17,7 @@ class RAII_ARK:
         # Start autonomy
         while not ARK.start_autonomy():
             rospy.loginfo("Failed to start autonomy. Retrying in 3 seconds...")
-            time.sleep(3)
+            rospy.sleep(3)
 
     def __del__(self):
         ARK.stop_autonomy()
@@ -38,6 +38,15 @@ def path_planner_status_callback(msg):
     tracking_goal = running_goal
 
 
+def pause(keyboard_input):
+    while True:
+        rospy.sleep(0.3)
+
+        if keyboard_input.check_hit() and " " == keyboard_input.get_char():
+            print("Resuming")
+            break
+
+
 def main(route_json_path):
     raii_ark = RAII_ARK()
 
@@ -56,6 +65,8 @@ def main(route_json_path):
         "/ark_bridge/path_planner_status", GoalStatusArray, path_planner_status_callback
     )
 
+    keyboard_input = KeyboardInput()
+
     # Loop through the positions in our list one at a time
     while not route.is_complete():
         next_pose = route.get_next_waypoint()
@@ -66,11 +77,25 @@ def main(route_json_path):
         pub.publish(next_pose.ark_pose())
 
         # Wait for a second to make sure the ARK has time to accept the goal
-        time.sleep(1)
+        rospy.sleep(1)
 
         # Loop until the ARK says it is done running a goal
         while (tracking_goal) and not rospy.is_shutdown():
-            time.sleep(1)
+            if keyboard_input.check_hit():
+
+                char = keyboard_input.get_char()
+
+                # Skip the waypoint if n is pressed (ord == 110)
+                if "n" == char:
+                    print("Skipping waypoint: ", next_pose.name)
+                    continue
+
+                # If the space bar is pressed, just wait until
+                if " " == char:
+                    print("Pausing")
+                    pause(keyboard_input)
+
+            rospy.sleep(1)
 
         rospy.loginfo("Done")
 
