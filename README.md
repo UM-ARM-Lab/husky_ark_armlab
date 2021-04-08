@@ -1,4 +1,8 @@
 # Package Name
+```
+roslaunch husky_ark_armlab husky_ark_armlab.launch route:=/home/eric/catkin_ws/src/husky-ark/config/robotics-to-wilson.json
+
+```
 
 ## Extracting waypoints from ARK
 
