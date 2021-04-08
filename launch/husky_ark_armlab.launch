@@ -8,13 +8,18 @@
   -->
 
   <!-- Start the ARK navigation server -->
-  <include file="$(find husky_cpr_ark_navigation)/launch/husky_ark_navigation.launch" />
+  <include file="$(find husky_cpr_ark_navigation)/launch/husky_ark_navigation.launch">
+      <arg name="front_laser" value="/front/scan_processed"/>
+      <arg name="rear_laser" value="/rear/scan_processed"/>
+  </include>
 
-  <node pkg="laser_filters" type="scan_to_scan_filter_chain"
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen"
       name="laser_filter">
-    <rosparam command="load" file="$(dirname)/../config/my_laser_config.yaml" />
-    <remap from="scan" to="base_scan" />
+    <rosparam command="load" file="$(dirname)/../config/laser_filter_config.yaml" />
+    <remap from="/front/scan" to="/front/scan_processed" />
+    <remap from="/rear/scan" to="/rear/scan_processed" />
   </node>
+  
 
   <!-- Launch the custom husky_ark node -->
   <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" 
