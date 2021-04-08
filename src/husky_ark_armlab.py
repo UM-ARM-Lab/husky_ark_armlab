@@ -68,7 +68,7 @@ def main(route_json_path):
     keyboard_input = KeyboardInput()
 
     # Loop through the positions in our list one at a time
-    while not route.is_complete():
+    while not route.is_complete() and not rospy.is_shutdown():
         next_pose = route.get_next_waypoint()
 
         rospy.loginfo("Moving to " + next_pose.name)
@@ -88,7 +88,7 @@ def main(route_json_path):
                 # Skip the waypoint if n is pressed (ord == 110)
                 if "n" == char:
                     print("Skipping waypoint: ", next_pose.name)
-                    continue
+                    break
 
                 # If the space bar is pressed, just wait until
                 if " " == char:

@@ -30,7 +30,7 @@ def main(route_json_path):
             # Skip the waypoint if n is pressed (ord == 110)
             if "n" == char:
                 print("Skipping waypoint: ", next_pose.name)
-                continue
+                break
 
             # If the space bar is pressed, just wait until
             if " " == char:
