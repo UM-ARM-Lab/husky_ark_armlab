@@ -11,18 +11,6 @@ from keyboard_input import KeyboardInput
 
 tracking_goal = True
 
-
-class RAII_ARK:
-    def __init__(self):
-        # Start autonomy
-        while not ARK.start_autonomy():
-            rospy.loginfo("Failed to start autonomy. Retrying in 3 seconds...")
-            rospy.sleep(3)
-
-    def __del__(self):
-        ARK.stop_autonomy()
-
-
 def path_planner_status_callback(msg):
     """This keeps track of the ARK's status and if it is tracking a goal or awaiting a new goal.
     The ark will maintain a list of current objectives and their status using this topic.
@@ -39,7 +27,7 @@ def path_planner_status_callback(msg):
 
 
 def pause(keyboard_input):
-    while True:
+    while True and not rospy.is_shutdown():
         rospy.sleep(0.3)
 
         if keyboard_input.check_hit() and " " == keyboard_input.get_char():
@@ -48,7 +36,10 @@ def pause(keyboard_input):
 
 
 def main(route_json_path):
-    raii_ark = RAII_ARK()
+    # Start autonomy
+    while not ARK.start_autonomy() and not rospy.is_shutdown():
+        rospy.loginfo("Failed to start autonomy. Retrying in 3 seconds...")
+        rospy.sleep(3)
 
     rospy.loginfo("ARK autonomy started")
 
