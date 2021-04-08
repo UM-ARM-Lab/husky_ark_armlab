@@ -14,12 +14,18 @@
   </include>
 
   <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen"
-      name="laser_filter">
+      name="laser_filter_front">
     <rosparam command="load" file="$(dirname)/../config/laser_filter_config.yaml" />
-    <remap from="/front/scan" to="/front/scan_processed" />
-    <remap from="/rear/scan" to="/rear/scan_processed" />
+    <remap from="scan" to="/front/scan" />
+    <remap from="scan_filtered" to="/front/scan_processed" />
   </node>
-  
+
+  <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen"
+      name="laser_filter_rear">
+    <rosparam command="load" file="$(dirname)/../config/laser_filter_config.yaml" />
+    <remap from="scan" to="/rear/scan" />
+    <remap from="scan_filtered" to="/rear/scan_processed" />
+  </node>
 
   <!-- Launch the custom husky_ark node -->
   <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" 
