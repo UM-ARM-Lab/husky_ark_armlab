@@ -8,6 +8,7 @@ from route_loader import Route
 from pose import Pose
 from ark_interface import ARK
 from keyboard_input import KeyboardInput
+from laser_filter_adjuster import LaserFilterAdjuster
 
 tracking_goal = True
 
@@ -57,6 +58,7 @@ def main(route_json_path):
     )
 
     keyboard_input = KeyboardInput()
+    filter_adjuster = LaserFilterAdjuster()
 
     # Loop through the positions in our list one at a time
     while not route.is_complete() and not rospy.is_shutdown():
@@ -85,6 +87,16 @@ def main(route_json_path):
                 if " " == char:
                     print("Pausing")
                     pause(keyboard_input)
+
+                if "w" == char:
+                    filter_adjuster.increase_radius()
+                    print("Increased filter radius to: ", filter_adjuster.front_upper_threshold())
+                    rospy.sleep(1.0)  # sleep to allow the point clouds to update
+
+                if "s" == char:
+                    filter_adjuster.decrease_radius()
+                    print("Decreased filter radius to: ", filter_adjuster.front_upper_threshold())
+                    rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
             rospy.sleep(1)
 
