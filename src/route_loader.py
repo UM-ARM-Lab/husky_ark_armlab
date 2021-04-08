@@ -4,8 +4,6 @@ import argparse
 import argparse
 from pose import Pose
 import yaml
-from ark_interface import ARK
-import rospy
 
 
 def assert_key_exists(key, data_dict):
@@ -48,7 +46,7 @@ class Map:
                 waypoint_dict["name"],
                 waypoint_dict["x"],
                 waypoint_dict["y"],
-                waypoint_dict["euler_angle"]
+                waypoint_dict["euler_angle"],
             )
             self.waypoint_poses.append(pose)
 
@@ -153,6 +151,9 @@ class Route:
         if self.dry_run:
             return
 
+        from ark_interface import ARK
+        import rospy
+
         # Load the initial map
         success = ARK.load_map(self.current_map.name)
 
@@ -168,12 +169,15 @@ class Route:
         if self.dry_run:
             return
 
+        from ark_interface import ARK
+        import rospy
+
         success = ARK.load_map(self.current_map.name)
 
         if not success:
-            rospy.logerr("Tried to load map {} and timed out".format(
-                self.current_map.name
-            ))
+            rospy.logerr(
+                "Tried to load map {} and timed out".format(self.current_map.name)
+            )
 
     def get_next_waypoint(self):
         if self.current_map.is_complete():
