@@ -6,6 +6,8 @@ from ark_bridge.srv import (
     LoadMapFromDisk_serviceRequest,
     SaveMapToDisk_service,
     SaveMapToDisk_serviceRequest,
+    String_service,
+    String_serviceRequest
 )
 
 DEFAULT_TIMEOUT_SEC = 3
@@ -40,6 +42,18 @@ class ARK:
     @staticmethod
     def stop_autonomy():
         return ARK.call_service("/ark_bridge/stop_autonomy")
+
+    @staticmethod
+    def pause_autonomy():
+        request = String_serviceRequest()
+        request.req_data.data = "ark_interface"
+        return ARK.call_service("/ark_bridge/control_selection_autonomy_pause", String_service, request)
+
+    @staticmethod
+    def resume_autonomy():
+        request = String_serviceRequest()
+        request.req_data.data = "ark_interface"
+        return ARK.call_service("/ark_bridge/control_selection_autonomy_resume", String_service, request)
 
     @staticmethod
     def load_map(map_name):

@@ -1,4 +1,5 @@
 from euler_to_quaternion import euler_to_quaternion
+import math
 
 
 class Pose:
@@ -51,8 +52,12 @@ class Pose:
             q4 = rotation_quaternion[3]
         )
 
-    def ark_pose(self):
+    def ark_pose(self, position_tolerance=0.3, orientation_tolerance=45):
         """Returns a ROS message to send to the ark
+
+        Args:
+            position_tolerance (float, optional): position tolerance in meters. Defaults to 0.3.
+            orientation_tolerance (int, optional): orientation tolerance in degrees. Defaults to 45.
 
         Returns:
             ark_bridge.msg.goal: a Goal message
@@ -67,8 +72,10 @@ class Pose:
         msg.pose.orientation.y = self.q2
         msg.pose.orientation.z = self.q3
         msg.pose.orientation.w = self.q4
-        msg.position_tolerance = 0.1
-        msg.orientation_tolerance = 0.1
+        msg.position_tolerance = position_tolerance
+
+        # Need to convert the orientation tolerance to radians
+        msg.orientation_tolerance = math.radians(orientation_tolerance)
         return msg
 
     def __repr__(self):

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-from ark_bridge.msg import SendGoal
-from ark_bridge.msg import GoalStatusArray
+from ark_bridge.msg import SendGoal, Empty, GoalStatusArray
 import actionlib_msgs
 import rospy
 import argparse
@@ -28,11 +27,13 @@ def path_planner_status_callback(msg):
 
 
 def pause(keyboard_input):
+    ARK.pause_autonomy()
     while True and not rospy.is_shutdown():
         rospy.sleep(0.3)
 
         if keyboard_input.check_hit() and " " == keyboard_input.get_char():
             print("Resuming")
+            ARK.resume_autonomy()
             break
 
 
@@ -51,6 +52,9 @@ def main(route_json_path):
 
     # Get a handle to the topic the ARK uses to accept goal
     pub = rospy.Publisher("/ark_bridge/send_goal", SendGoal, queue_size=1)
+
+    # Get a handle to the topic the ARK uses to accept goal
+    cancel_goal_publisher = rospy.Publisher("/ark_bridge/cancel_goal", Empty, queue_size=1)
 
     # Get a handle to the topic the ARK uses to return its status
     rospy.Subscriber(
@@ -81,7 +85,7 @@ def main(route_json_path):
                 # Skip the waypoint if n is pressed (ord == 110)
                 if "n" == char:
                     print("Skipping waypoint: ", next_pose.name)
-                    break
+                    cancel_goal_publisher.publish(Empty())
 
                 # If the space bar is pressed, just wait until
                 if " " == char:
