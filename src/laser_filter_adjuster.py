@@ -8,22 +8,22 @@ class LaserFilterAdjuster:
         self.front_params = self.front_client.get_configuration()
         self.rear_params = self.rear_client.get_configuration()
 
-        print("LaserFilter front params", self.front_params)
-        print("LaserFilter rear params", self.rear_params)
-
     def front_upper_threshold(self):
         return self.front_params["upper_threshold"]
 
     def rear_upper_threshold(self):
         return self.front_params["upper_threshold"]
 
-    def increase_radius(self, amount=1.0):
+    def increase_radius(self, amount=0.5):
+        self.set_radius(self.front_upper_threshold() + amount)
+
+    def decrease_radius(self, amount=0.5):
+        return self.increase_radius(-1 * amount)
+
+    def set_radius(self, amount):
         self.front_params = self.front_client.update_configuration({
-            "upper_threshold": self.front_upper_threshold() + amount
+            "upper_threshold": amount
         })
         self.rear_params = self.rear_client.update_configuration({
-            "upper_threshold": self.rear_upper_threshold() + amount
+            "upper_threshold": amount
         })
-
-    def decrease_radius(self, amount=1.0):
-        return self.increase_radius(-1 * amount)

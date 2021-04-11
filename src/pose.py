@@ -1,5 +1,4 @@
 from euler_to_quaternion import euler_to_quaternion
-import math
 
 
 class Pose:
@@ -17,7 +16,8 @@ class Pose:
             q2 (float): y quaternion
             q3 (float): z quaternion
             q4 (float): w quaternion
-            upper_lidar_threshold (float, optional): upper lidar threshold to apply after reaching this pose. Defaults to 15.0.
+            upper_lidar_threshold (float, optional): upper lidar threshold to apply
+                after reaching this pose. Defaults to 15.0.
         """
         self.name = name
         self.x = x
@@ -38,7 +38,8 @@ class Pose:
             x (float): X position
             y (float): Y position
             euler_angle (float): euler angle with respect to z-axis
-            upper_lidar_threshold (float, optional): upper lidar threshold to apply after reaching this pose. Defaults to 15.0.
+            upper_lidar_threshold (float, optional): upper lidar threshold to apply after reaching this pose.
+                Defaults to 15.0.
 
         Returns:
             Pose: a new Pose object
@@ -65,31 +66,14 @@ class Pose:
         """
         return self.upper_lidar_threshold
 
-    def ark_pose(self, position_tolerance=0.3, orientation_tolerance=45):
-        """Returns a ROS message to send to the ark
-
-        Args:
-            position_tolerance (float, optional): position tolerance in meters. Defaults to 0.3.
-            orientation_tolerance (int, optional): orientation tolerance in degrees. Defaults to 45.
-
-        Returns:
-            ark_bridge.msg.goal: a Goal message
-        """
-        from ark_bridge.msg import SendGoal
-
-        msg = SendGoal()
-        msg.pose.position.x = self.x
-        msg.pose.position.y = self.y
-        msg.pose.position.z = self.z
-        msg.pose.orientation.x = self.q1
-        msg.pose.orientation.y = self.q2
-        msg.pose.orientation.z = self.q3
-        msg.pose.orientation.w = self.q4
-        msg.position_tolerance = position_tolerance
-
-        # Need to convert the orientation tolerance to radians
-        msg.orientation_tolerance = math.radians(orientation_tolerance)
-        return msg
+    def fill_message_with_pose(self, message):
+        message.pose.position.x = self.x
+        message.pose.position.y = self.y
+        message.pose.position.z = self.z
+        message.pose.orientation.x = self.q1
+        message.pose.orientation.y = self.q2
+        message.pose.orientation.z = self.q3
+        message.pose.orientation.w = self.q4
 
     def __repr__(self):
         return self.__str__()

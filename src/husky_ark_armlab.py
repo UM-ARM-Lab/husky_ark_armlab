@@ -11,6 +11,7 @@ from laser_filter_adjuster import LaserFilterAdjuster
 
 tracking_goal = True
 
+
 def path_planner_status_callback(msg):
     """This keeps track of the ARK's status and if it is tracking a goal or awaiting a new goal.
     The ark will maintain a list of current objectives and their status using this topic.
@@ -67,11 +68,12 @@ def main(route_json_path):
     # Loop through the positions in our list one at a time
     while not route.is_complete() and not rospy.is_shutdown():
         next_pose = route.get_next_waypoint()
+        filter_adjuster.set_radius(next_pose.get_upper_lidar_threshold())
 
         rospy.loginfo("Moving to " + next_pose.name)
 
         # Get a message for the ark and send it to the new goal topic
-        pub.publish(next_pose.ark_pose())
+        pub.publish(ARK.create_goal_message(next_pose))
 
         # Wait for a second to make sure the ARK has time to accept the goal
         rospy.sleep(1)
@@ -84,22 +86,28 @@ def main(route_json_path):
 
                 # Skip the waypoint if n is pressed (ord == 110)
                 if "n" == char:
-                    print("Skipping waypoint: ", next_pose.name)
+                    rospy.loginfo("Skipping waypoint: {}".format(next_pose.name))
                     cancel_goal_publisher.publish(Empty())
 
                 # If the space bar is pressed, just wait until
-                if " " == char:
-                    print("Pausing")
+                elif " " == char:
+                    rospy.loginfo("Pausing")
                     pause(keyboard_input)
 
-                if "w" == char:
-                    filter_adjuster.increase_radius()
-                    print("Increased filter radius to: ", filter_adjuster.front_upper_threshold())
+                # Set the threshold to use for the lidars using (0-9)
+                elif char.isdigit():
+                    filter_adjuster.set_radius(int(char))
+                    rospy.loginfo("Setting filter radius to: {}".format(char))
                     rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
-                if "s" == char:
+                elif "w" == char:
+                    filter_adjuster.increase_radius()
+                    rospy.loginfo("Increased filter radius to: {}".format(filter_adjuster.front_upper_threshold()))
+                    rospy.sleep(1.0)  # sleep to allow the point clouds to update
+
+                elif "s" == char:
                     filter_adjuster.decrease_radius()
-                    print("Decreased filter radius to: ", filter_adjuster.front_upper_threshold())
+                    rospy.loginfo("Decreased filter radius to: {}".format(filter_adjuster.front_upper_threshold()))
                     rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
             rospy.sleep(1)
