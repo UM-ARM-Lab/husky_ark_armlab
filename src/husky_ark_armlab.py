@@ -97,25 +97,23 @@ def main(route_json_path):
                 # Set the threshold to use for the lidars using (0-9)
                 elif char.isdigit():
                     filter_adjuster.set_radius(int(char))
-                    rospy.loginfo("Setting filter radius to: {}".format(char))
                     rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
                 elif "w" == char:
                     filter_adjuster.increase_radius()
-                    rospy.loginfo("Increased filter radius to: {}".format(filter_adjuster.front_upper_threshold()))
                     rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
                 elif "s" == char:
                     filter_adjuster.decrease_radius()
-                    rospy.loginfo("Decreased filter radius to: {}".format(filter_adjuster.front_upper_threshold()))
                     rospy.sleep(1.0)  # sleep to allow the point clouds to update
 
             rospy.sleep(1)
 
-        rospy.loginfo("Done")
+    rospy.loginfo("Route completed")
 
     # stop autonomy once the goal is reached
     ARK.stop_autonomy()
+    rospy.loginfo("Autonomoy stopped")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 import dynamic_reconfigure.client
-
+import rospy
 
 class LaserFilterAdjuster:
     def __init__(self):
@@ -21,6 +21,12 @@ class LaserFilterAdjuster:
         return self.increase_radius(-1 * amount)
 
     def set_radius(self, amount):
+        # No need to set the radius again if no change is made
+        if self.front_upper_threshold() == amount and self.rear_upper_threshold() == amount:
+            return
+
+        # Otherwise set the updated radius
+        rospy.loginfo("Setting filter radius to: {}".format(amount))
         self.front_params = self.front_client.update_configuration({
             "upper_threshold": amount
         })
