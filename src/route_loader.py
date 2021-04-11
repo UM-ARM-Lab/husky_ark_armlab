@@ -56,6 +56,7 @@ class Map:
                 waypoint_dict["x"],
                 waypoint_dict["y"],
                 waypoint_dict["euler_angle"],
+                upper_lidar_threshold=pose_specific_lidar_threshold,
             )
             self.waypoint_poses.append(pose)
 
