@@ -8,9 +8,9 @@
         {
           "name": "origin",
           "description": "Starting location of the robot inside lab",
-          "x": 0,
-          "y": 0,
-          "euler_angle": 0
+          "x": -0.523,
+          "y": -0.574,
+          "euler_angle": 133
         },
         {
           "name": "outside-lab-balcony",
