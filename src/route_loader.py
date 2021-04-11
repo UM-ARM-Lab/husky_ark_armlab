@@ -21,14 +21,19 @@ def is_number(x):
 
 
 class Map:
-    def __init__(self, name, map_dict):
+    def __init__(self, name, map_dict, default_upper_lidar_threshold):
         """[summary]
 
         Args:
             name (str): [description]
             map_dict (dict): [description]
+            default_upper_lidar_threshold (float): default upper range for lidar scan
         """
         self.name = name
+
+        self.upper_lidar_threshold = default_upper_lidar_threshold
+        if "upper_scan_threshold" in map_dict:
+            self.upper_lidar_threshold = map_dict["upper_scan_threshold"]
 
         # str | None
         self.next_map = map_dict["next_map"]
@@ -41,6 +46,10 @@ class Map:
             # Skip over any waypoints marked with "skip": true
             if "skip" in waypoint_dict and waypoint_dict["skip"]:
                 continue
+
+            pose_specific_lidar_threshold = self.upper_lidar_threshold
+            if "upper_scan_threshold" in waypoint_dict:
+                pose_specific_lidar_threshold = waypoint_dict["upper_scan_threshold"]
 
             pose = Pose.pose_from_xy_euler(
                 waypoint_dict["name"],
@@ -94,6 +103,11 @@ class Map:
 
         # The next_map should be a str or None (if last map)
         assert map_dict["next_map"] is None or isinstance(map_dict["next_map"], str)
+
+        # If the upper threshold is specified, it must be a number
+        assert "upper_scan_threshold" not in map_dict or is_number(
+            map_dict["upper_scan_threshold"]
+        )
         assert_key_exists("description", map_dict)
         assert_key_exists("route", map_dict)
         Map.validate_map_route(map_dict["route"])
@@ -121,15 +135,23 @@ class Map:
             assert is_number(waypoint_dict["y"])
             assert is_number(waypoint_dict["euler_angle"])
 
+            # If the upper threshold is specified, it must be a number
+            assert "upper_scan_threshold" not in waypoint_dict or is_number(
+                waypoint_dict["upper_scan_threshold"]
+            )
+
 
 class Route:
     """A class to handle interacting with Routes"""
 
-    def __init__(self, route_json_path, dry_run=False):
+    def __init__(
+        self, route_json_path, default_upper_lidar_threshold=15.0, dry_run=False
+    ):
         """Create a new Route instance
 
         Args:
             route_json_path (str): the path to the route JSON configuration
+            default_upper_lidar_threshold (float): default upper range for lidar scan
             dry_run (bool): if true, won't send commands to ARK
         """
         self.dry_run = dry_run
@@ -144,7 +166,11 @@ class Route:
         self.current_map = None
 
         for map_name, map_dict in route_data["maps"].items():
-            self.maps[map_name] = Map(map_name, map_dict)
+            self.maps[map_name] = Map(
+                map_name,
+                map_dict,
+                default_upper_lidar_threshold=default_upper_lidar_threshold,
+            )
 
         self.current_map = self.maps[self.start_map_key]
 

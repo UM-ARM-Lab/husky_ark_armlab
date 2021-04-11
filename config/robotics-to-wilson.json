@@ -94,7 +94,7 @@
       ]
     },
     "low-lidar-side-to-wilson": {
-      "description": "Third floor of the Wilson Center",
+      "description": "Outdoor navigation from side-doors of Robotics building to Wilson Center",
       "next_map": "wilson-bottom-floor",
       "route": [
         {
@@ -144,21 +144,24 @@
           "description": "",
           "x": 46.562,
           "y": 140.706,
-          "euler_angle": 180
+          "euler_angle": 180,
+          "upper_scan_threshold": 2.0
         },
         {
           "name": "wilson-sidewalk-start-of-curve",
           "description": "",
           "x": 64.693,
           "y": 138.967,
-          "euler_angle": 134
+          "euler_angle": 134,
+          "upper_scan_threshold": 3.0
         },
         {
           "name": "wilson-sidewalk-end-of-curve",
           "description": "",
           "x": 69.434,
           "y": 132.523,
-          "euler_angle": 82
+          "euler_angle": 82,
+          "upper_scan_threshold": 3.0
         },
         {
           "name": "wilson-sidewalk-facing-entrance",
@@ -178,7 +181,8 @@
           "description": "Outside the Wilson center facing towards doors",
           "x": 0.347,
           "y": 1.455,
-          "euler_angle": 262
+          "euler_angle": 262,
+          "upper_scan_threshold": 3.0
         },
         {
           "name": "wilson-top-of-ramp",
@@ -192,11 +196,12 @@
           "description": "Near elevator bottom floor",
           "x": -2.683,
           "y": 28.099,
-          "euler_angle": 46
+          "euler_angle": 46,
+          "upper_scan_threshold": 3.0
         },
         {
-          "name": "wilson-bottom-floor-elevator",
-          "description": "Near the elevator facing towards the atrium",
+          "name": "wilson-bottom-inside-elevator",
+          "description": "Inside the elevator on the bottom floor",
           "x": -5.345,
           "y": 26.268,
           "euler_angle": 162
@@ -205,6 +210,7 @@
     },
     "top-floor-wilson": {
       "description": "Third floor of the Wilson Center",
+      "upper_scan_threshold": 5.0,
       "next_map": null,
       "route": [
         {
