@@ -86,6 +86,18 @@ class Map:
         """
         return self.current_waypoint_idx == len(self.waypoint_poses) - 1
 
+    def is_on_first_waypoint_of_map(self):
+        """Checks if the map is currently on its first waypoint.
+
+        This should be called after the first call to move_to_next_waypoint()
+        because self.current_waypoint_idx starts as -1 and is only set to 0
+        after the first call to move_to_next_waypoint().
+
+        Returns:
+            bool: whether the map is on the first waypoint or not
+        """
+        return self.current_waypoint_idx == 0
+
     def is_final_map(self):
         """Checks to see if this map is the final map of the route
 
@@ -217,7 +229,17 @@ class Route:
 
             self.load_next_map()
 
-        return self.current_map.move_to_next_waypoint()
+        next_waypoint = self.current_map.move_to_next_waypoint()
+
+        # If we are starting a new map, we can signal to the ARK
+        # where the Husky should start from
+        if not self.dry_run and self.current_map.is_on_first_waypoint_of_map():
+            from ark_interface import ARK
+            import rospy
+            ARK.set_pose(next_waypoint)
+            rospy.loginfo("Set initial pose for map to {}".format(next_waypoint.name))
+
+        return next_waypoint
 
     def is_complete(self):
         return self.current_map.is_final_map() and self.current_map.is_complete()

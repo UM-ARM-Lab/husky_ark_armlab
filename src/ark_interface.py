@@ -32,8 +32,8 @@ class ARK:
         rospy.wait_for_service(topic, timeout=DEFAULT_TIMEOUT_SEC)
 
         try:
-            empty_service = rospy.ServiceProxy(topic, service)
-            response = empty_service(request)
+            service_instance = rospy.ServiceProxy(topic, service)
+            response = service_instance(request)
             return not response.ark_service_timeout
 
         except rospy.ServiceException as e:
@@ -62,9 +62,12 @@ class ARK:
 
     @staticmethod
     def set_pose(pose):
-        request.req_data
-        request.req_data.data = "ark_interface"
-        return ARK.call_service("/ark_bridge/slam_set_initial_pose", SetPose_service, request)
+        msg = SetPose_serviceRequest()
+
+        # This just fills position and orientation
+        # We are leaving covariance as all zeros
+        pose.fill_message_with_pose(msg.req_data.pose)
+        return ARK.call_service("/ark_bridge/slam_set_initial_pose", SetPose_service, msg)
 
     @staticmethod
     def create_goal_message(pose, position_tolerance=0.3, orientation_tolerance=45):
@@ -88,38 +91,6 @@ class ARK:
         # Need to convert the orientation tolerance to radians
         msg.orientation_tolerance = math.radians(orientation_tolerance)
         return msg
-
-    @staticmethod
-    def create_setpose_message(pose):
-        """Creates a SetPose message. This can be used to hint to the ARK
-        where the Husky currently is.
-
-        Args:
-            pose (Pose): an instance of the custom Pose class
-
-        Returns:
-            ark_bridge.srv.SetPose_serviceRequest: a set pose service request.
-                It is of the folowing form with the position and orientation filled in.
-                The covariance is left as all zeros:
-
-                req_data:
-                    header:
-                        seq: 0
-                        stamp:
-                        secs: 0
-                        nsecs: 0
-                        frame_id: ''
-                    pose:
-                        pose:
-                        position: {x: 0.0, y: 0.0, z: 0.0}
-                        orientation: {x: 0.0, y: 0.0, z: 0.0, w: 0.0}
-                        covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        """
-        request = SetPose_serviceRequest()
-        pose.fill_message_with_pose(request)
-        return request
 
     @staticmethod
     def load_map(map_name):
