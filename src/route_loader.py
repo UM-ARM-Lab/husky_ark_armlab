@@ -158,7 +158,7 @@ class Route:
     """A class to handle interacting with Routes"""
 
     def __init__(
-        self, route_json_path, default_upper_lidar_threshold=15.0, dry_run=False
+        self, route_json_path, default_upper_lidar_threshold=50.0, dry_run=False
     ):
         """Create a new Route instance
 
