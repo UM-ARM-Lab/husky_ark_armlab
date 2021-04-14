@@ -21,19 +21,26 @@ def is_number(x):
 
 
 class Map:
-    def __init__(self, name, map_dict, default_upper_lidar_threshold):
+    def __init__(
+        self, name, map_dict, default_upper_lidar_threshold, start_waypoint_index=0
+    ):
         """[summary]
 
         Args:
             name (str): [description]
             map_dict (dict): [description]
             default_upper_lidar_threshold (float): default upper range for lidar scan
+            start_waypoint_index (int): the waypoint to start at for this map (will skip previous waypoints)
         """
         self.name = name
 
         self.upper_lidar_threshold = default_upper_lidar_threshold
         if "upper_scan_threshold" in map_dict:
             self.upper_lidar_threshold = map_dict["upper_scan_threshold"]
+
+        assert start_waypoint_index >= 0, "Starting waypoint index should be >= 0"
+
+        self.start_waypoint_index = start_waypoint_index
 
         # str | None
         self.next_map = map_dict["next_map"]
@@ -42,7 +49,9 @@ class Map:
         self.description = map_dict["description"]
         self.waypoint_poses = []
 
-        for waypoint_dict in map_dict["route"]:
+        for i in range(self.start_waypoint_index, len(map_dict["route"])):
+            waypoint_dict = map_dict["route"][i]
+
             # Skip over any waypoints marked with "skip": true
             if "skip" in waypoint_dict and waypoint_dict["skip"]:
                 continue
@@ -60,7 +69,8 @@ class Map:
             )
             self.waypoint_poses.append(pose)
 
-        self.current_waypoint_idx = -1
+        # Start one less than the starting waypoint index (so we can move to it)
+        self.current_waypoint_idx = self.start_waypoint_index - 1
 
     def move_to_next_waypoint(self):
         """Gets the next waypoint pose to move to
@@ -74,7 +84,8 @@ class Map:
                 False
             ), "Map already complete. You should be checking is_route_complete() before moving to next waypoint."
 
-        # We start off with current_waypoint_idx = -1, so this is okay
+        # We start off with current_waypoint_idx = self.start_waypoint_index - 1, so this is okay
+        # for the first waypoint (no issue moving past it initially)
         self.current_waypoint_idx += 1
         return self.waypoint_poses[self.current_waypoint_idx]
 
@@ -90,13 +101,13 @@ class Map:
         """Checks if the map is currently on its first waypoint.
 
         This should be called after the first call to move_to_next_waypoint()
-        because self.current_waypoint_idx starts as -1 and is only set to 0
-        after the first call to move_to_next_waypoint().
+        because self.current_waypoint_idx starts as (start_waypoint_index - 1)
+        and is only set to 0 after the first call to move_to_next_waypoint().
 
         Returns:
             bool: whether the map is on the first waypoint or not
         """
-        return self.current_waypoint_idx == 0
+        return self.current_waypoint_idx == self.start_waypoint_index
 
     def is_final_map(self):
         """Checks to see if this map is the final map of the route
@@ -158,7 +169,12 @@ class Route:
     """A class to handle interacting with Routes"""
 
     def __init__(
-        self, route_json_path, default_upper_lidar_threshold=50.0, dry_run=False
+        self,
+        route_json_path,
+        default_upper_lidar_threshold=50.0,
+        dry_run=False,
+        start_map=None,
+        start_waypoint_index=0,
     ):
         """Create a new Route instance
 
@@ -173,7 +189,9 @@ class Route:
         # We can now assume that the map JSON is valid
 
         self.maps = {}
-        self.start_map_key = route_data["start_map"]
+        self.start_map_key = (
+            start_map if start_map is not None else route_data["start_map"]
+        )
 
         # Map type
         self.current_map = None
@@ -183,6 +201,7 @@ class Route:
                 map_name,
                 map_dict,
                 default_upper_lidar_threshold=default_upper_lidar_threshold,
+                start_waypoint_index=start_waypoint_index,
             )
 
         self.current_map = self.maps[self.start_map_key]
@@ -236,6 +255,7 @@ class Route:
         if not self.dry_run and self.current_map.is_on_first_waypoint_of_map():
             from ark_interface import ARK
             import rospy
+
             ARK.set_pose(next_waypoint)
             rospy.loginfo("Set initial pose for map to {}".format(next_waypoint.name))
 

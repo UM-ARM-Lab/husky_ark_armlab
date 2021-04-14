@@ -38,7 +38,7 @@ def pause(keyboard_input):
             break
 
 
-def main(route_json_path):
+def main(route_json_path, start_map, start_waypoint_index):
     # Start autonomy
     while not ARK.start_autonomy() and not rospy.is_shutdown():
         rospy.loginfo("Failed to start autonomy. Retrying in 3 seconds...")
@@ -46,7 +46,9 @@ def main(route_json_path):
 
     rospy.loginfo("ARK autonomy started")
 
-    route = Route(route_json_path)
+    route = Route(
+        route_json_path, start_map=start_map, start_waypoint_index=start_waypoint_index
+    )
 
     # Start a ROS node called "PositionCommander"
     rospy.init_node("PositionCommander", anonymous=True)
@@ -55,7 +57,9 @@ def main(route_json_path):
     pub = rospy.Publisher("/ark_bridge/send_goal", SendGoal, queue_size=1)
 
     # Get a handle to the topic the ARK uses to accept goal
-    cancel_goal_publisher = rospy.Publisher("/ark_bridge/cancel_goal", Empty, queue_size=1)
+    cancel_goal_publisher = rospy.Publisher(
+        "/ark_bridge/cancel_goal", Empty, queue_size=1
+    )
 
     # Get a handle to the topic the ARK uses to return its status
     rospy.Subscriber(
@@ -121,5 +125,13 @@ if __name__ == "__main__":
     ap.add_argument(
         "-r", "--route", type=str, required=True, help="The path to the route JSON"
     )
+    ap.add_argument("-m", "--map", type=str, default=None, help="The map to start on")
+    ap.add_argument(
+        "-w",
+        "--waypoint-index",
+        type=int,
+        default=0,
+        help="The waypoint index to start on",
+    )
     args = vars(ap.parse_args(rospy.myargv()[1:]))
-    main(args["route"])
+    main(args["route"], args["map"], args["waypoint-index"])
