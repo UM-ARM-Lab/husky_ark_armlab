@@ -68,6 +68,13 @@
           "euler_angle": 275
         },
         {
+          "name": "bottom-floor-outside-double-doors",
+          "description": "Outside sets of side-doors",
+          "x": -2.051,
+          "y": 16.803,
+          "euler_angle": 357
+        },
+        {
           "name": "bottom-floor-elevator-to-hallway",
           "description": "Near the elevator facing towards the atrium",
           "x": -2.874,
@@ -98,18 +105,11 @@
       "next_map": "wilson-bottom-floor",
       "route": [
         {
-          "name": "between-robotics-side-doors",
-          "description": "",
-          "x": -0.016,
-          "y": -0.287,
-          "euler_angle": 184
-        },
-        {
           "name": "outside-robotics-side-doors",
           "description": "",
-          "x": 4.095,
-          "y": 2.814,
-          "euler_angle": 254
+          "x": 3.329,
+          "y": -1.866,
+          "euler_angle": 268
         },
         {
           "name": "outside-robotics-curved-pathway-to-front-entrance",

@@ -68,6 +68,13 @@
           "description": "Near the elevator facing towards the atrium"
         }, 
         {
+          "y": 16.803, 
+          "x": -2.051, 
+          "euler_angle": 177, 
+          "name": "bottom-floor-outside-double-doors", 
+          "description": "Outside sets of side-doors"
+        }, 
+        {
           "y": 14.064, 
           "x": -3.87, 
           "euler_angle": 95, 
@@ -154,17 +161,10 @@
           "description": ""
         }, 
         {
-          "y": 2.814, 
-          "x": 4.095, 
-          "euler_angle": 74, 
+          "y": -1.866, 
+          "x": 3.329, 
+          "euler_angle": 88, 
           "name": "outside-robotics-side-doors", 
-          "description": ""
-        }, 
-        {
-          "y": -0.287, 
-          "x": -0.016, 
-          "euler_angle": 4, 
-          "name": "between-robotics-side-doors", 
           "description": ""
         }
       ], 
