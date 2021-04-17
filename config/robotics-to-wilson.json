@@ -61,6 +61,13 @@
           "euler_angle": 5
         },
         {
+          "name": "bottom-floor-before-side-doors",
+          "description": "Facing the side double doors from inside the building",
+          "x": -3.858,
+          "y": 9.265,
+          "euler_angle": 276
+        },
+        {
           "name": "bottom-floor-between-side-doors",
           "description": "Between sets of side-doors",
           "x": -3.87,
@@ -174,7 +181,7 @@
     },
     "wilson-bottom-floor": {
       "description": "First floor of the Wilson Center (from back entrance)",
-      "next_map": "top-floor-wilson",
+      "next_map": "top-floor-wilson-improved",
       "route": [
         {
           "name": "wilson-outside-facing-doors",
