@@ -2,7 +2,7 @@
   <!-- We want to wait for the ARK to start up, so we don't run right away -->
   <arg name="node_start_delay" default="4.0" />  
   <arg name="route" default="$(dirname)/../config/route.json"/>
-  <arg name="map" default="top-floor-robotics"/>
+  <arg name="map" default="NONE"/>
   <arg name="waypoint" default="0" />
 
   <!-- For using the RealSense (untested)

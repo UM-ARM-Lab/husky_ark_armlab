@@ -134,4 +134,11 @@ if __name__ == "__main__":
         help="The waypoint index to start on",
     )
     args = vars(ap.parse_args(rospy.myargv()[1:]))
+
+    # In order to specify NONE as a value for a ROS param,
+    # we set the default value to be "NONE"
+    # This will replace all entries with the value "NONE" to have
+    # the value None
+    args = {k: (v if v != "NONE" else None) for k, v in args.items()}
+
     main(args["route"], args["map"], args["waypoint_index"])
