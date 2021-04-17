@@ -8,37 +8,37 @@
         {
           "name": "origin",
           "description": "Starting location of the robot inside lab",
-          "x": -0.523,
-          "y": -0.574,
-          "euler_angle": 133
+          "x": -0.121,
+          "y": -0.001,
+          "euler_angle": 177
         },
         {
           "name": "outside-lab-balcony",
           "description": "A little away from the door so the robot can navigate out",
-          "x": -4.191,
-          "y": -8.418,
-          "euler_angle": 134
+          "x": 2.124,
+          "y": -8.388,
+          "euler_angle": 178
         },
         {
           "name": "second-floor-towards-elevator",
           "description": "Second floor balcony towards hallway",
-          "x": -8.774,
-          "y": -3.77,
-          "euler_angle": 222
+          "x": -3.826,
+          "y": -7.809,
+          "euler_angle": 266
         },
         {
           "name": "second-floor-elevator-waiting",
           "description": "Second floor waiting position for elevator",
-          "x": 4.901,
-          "y": 12.723,
-          "euler_angle": 222
+          "x": -4.077,
+          "y": 13.25,
+          "euler_angle": 260
         },
         {
           "name": "second-floor-inside-elevator",
           "description": "Second floor waiting position for elevator",
-          "x": 6.708,
-          "y": 14.587,
-          "euler_angle": 42
+          "x": -3.271,
+          "y": 16.512,
+          "euler_angle": 83
         }
       ]
     },
