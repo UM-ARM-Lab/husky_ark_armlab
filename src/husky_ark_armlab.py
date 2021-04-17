@@ -128,10 +128,10 @@ if __name__ == "__main__":
     ap.add_argument("-m", "--map", type=str, default=None, help="The map to start on")
     ap.add_argument(
         "-w",
-        "--waypoint-index",
+        "--waypoint_index",
         type=int,
         default=0,
         help="The waypoint index to start on",
     )
     args = vars(ap.parse_args(rospy.myargv()[1:]))
-    main(args["route"], args["map"], args["waypoint-index"])
+    main(args["route"], args["map"], args["waypoint_index"])

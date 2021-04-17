@@ -3,7 +3,7 @@
   <arg name="node_start_delay" default="4.0" />  
   <arg name="route" default="$(dirname)/../config/route.json"/>
   <arg name="map" default="top-floor-robotics"/>
-  <arg name="waypoint-index" default="0" />
+  <arg name="waypoint" default="0" />
 
   <!-- For using the RealSense (untested)
     <include file="$(dirname)/realsense_laser_scan.launch" />
@@ -32,7 +32,7 @@
   <!-- Launch the custom husky_ark node -->
   <node pkg="husky_ark_armlab" type="husky_ark_armlab.py" 
     name="husky_ark_armlab" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "
-    args="--route $(arg route) --map $(arg map) --waypoint-index $(arg waypoint-index)">
+    args="--route $(arg route) --map $(arg map) --waypoint_index $(arg waypoint)">
       <rosparam command="load" file="$(dirname)/../config/default.yaml" />
   </node>
 </launch>
