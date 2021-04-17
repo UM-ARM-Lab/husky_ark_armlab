@@ -14,7 +14,7 @@ def pause(keyboard_input):
 
 
 def main(route_json_path):
-    route = Route(route_json_path, dry_run=True, start_map="low-lidar-side-to-wilson")
+    route = Route(route_json_path, dry_run=True, start_map=None)
 
     keyboard_input = KeyboardInput()
 
