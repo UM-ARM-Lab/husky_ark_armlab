@@ -208,7 +208,7 @@
         }
       ]
     },
-    "top-floor-wilson": {
+    "top-floor-wilson-improved": {
       "description": "Third floor of the Wilson Center",
       "upper_scan_threshold": 5.0,
       "next_map": null,
@@ -216,37 +216,37 @@
         {
           "name": "wilson-third-floor-inside-elevator",
           "description": "Third floor inside elevator - facing outward",
-          "x": -0.03,
-          "y": 0.086,
-          "euler_angle": 2
+          "x": -0.052,
+          "y": -0.047,
+          "euler_angle": 176
         },
         {
           "name": "wilson-third-floor-elevator-to-seating-area",
           "description": "Outside of elevator and near seating area",
-          "x": 0.07,
-          "y": -6.53,
-          "euler_angle": 176
+          "x": 0.199,
+          "y": 6.572,
+          "euler_angle": 355
         },
         {
           "name": "wilson-third-floor-seating-to-door",
           "description": "About to enter the L shaped hallway",
-          "x": 8.558,
-          "y": -6.862,
-          "euler_angle": 263
+          "x": -8.016,
+          "y": 7.213,
+          "euler_angle": 83
         },
         {
           "name": "wilson-third-floor-hallway-turn",
           "description": "In the L shaped turn",
-          "x": 9.89,
-          "y": 1.54,
-          "euler_angle": 176
+          "x": -10.101,
+          "y": -0.521,
+          "euler_angle": 356
         },
         {
           "name": "wilson-third-floor-facing-roof-door",
           "description": "In front of door to stairs and roof access",
-          "x": 22.949,
-          "y": 0.142,
-          "euler_angle": 175
+          "x": -22.389,
+          "y": 0.895,
+          "euler_angle": 355
         }
       ]
     }
