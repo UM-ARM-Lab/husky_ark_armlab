@@ -82,6 +82,13 @@
           "description": "Between sets of side-doors"
         }, 
         {
+          "y": 9.265, 
+          "x": -3.858, 
+          "euler_angle": 96, 
+          "name": "bottom-floor-before-side-doors", 
+          "description": "Facing the side double doors from inside the building"
+        }, 
+        {
           "y": -2.85, 
           "x": -2.874, 
           "euler_angle": 185, 
@@ -98,6 +105,48 @@
       ], 
       "next_map": "top-floor-robotics", 
       "description": "First floor of the Robotics building"
+    }, 
+    "top-floor-wilson-improved": {
+      "upper_scan_threshold": 5.0, 
+      "route": [
+        {
+          "y": 0.895, 
+          "x": -22.389, 
+          "euler_angle": 175, 
+          "name": "wilson-third-floor-facing-roof-door", 
+          "description": "In front of door to stairs and roof access"
+        }, 
+        {
+          "y": -0.521, 
+          "x": -10.101, 
+          "euler_angle": 176, 
+          "name": "wilson-third-floor-hallway-turn", 
+          "description": "In the L shaped turn"
+        }, 
+        {
+          "y": 7.213, 
+          "x": -8.016, 
+          "euler_angle": 263, 
+          "name": "wilson-third-floor-seating-to-door", 
+          "description": "About to enter the L shaped hallway"
+        }, 
+        {
+          "y": 6.572, 
+          "x": 0.199, 
+          "euler_angle": 175, 
+          "name": "wilson-third-floor-elevator-to-seating-area", 
+          "description": "Outside of elevator and near seating area"
+        }, 
+        {
+          "y": -0.047, 
+          "x": -0.052, 
+          "euler_angle": 356, 
+          "name": "wilson-third-floor-inside-elevator", 
+          "description": "Third floor inside elevator - facing outward"
+        }
+      ], 
+      "next_map": "wilson-bottom-floor", 
+      "description": "Third floor of the Wilson Center"
     }, 
     "low-lidar-side-to-wilson": {
       "route": [
@@ -206,49 +255,7 @@
       ], 
       "next_map": "low-lidar-side-to-wilson", 
       "description": "First floor of the Wilson Center (from back entrance)"
-    }, 
-    "top-floor-wilson": {
-      "upper_scan_threshold": 5.0, 
-      "route": [
-        {
-          "y": 0.142, 
-          "x": 22.949, 
-          "euler_angle": 355, 
-          "name": "wilson-third-floor-facing-roof-door", 
-          "description": "In front of door to stairs and roof access"
-        }, 
-        {
-          "y": 1.54, 
-          "x": 9.89, 
-          "euler_angle": 356, 
-          "name": "wilson-third-floor-hallway-turn", 
-          "description": "In the L shaped turn"
-        }, 
-        {
-          "y": -6.862, 
-          "x": 8.558, 
-          "euler_angle": 83, 
-          "name": "wilson-third-floor-seating-to-door", 
-          "description": "About to enter the L shaped hallway"
-        }, 
-        {
-          "y": -6.53, 
-          "x": 0.07, 
-          "euler_angle": 356, 
-          "name": "wilson-third-floor-elevator-to-seating-area", 
-          "description": "Outside of elevator and near seating area"
-        }, 
-        {
-          "y": 0.086, 
-          "x": -0.03, 
-          "euler_angle": 182, 
-          "name": "wilson-third-floor-inside-elevator", 
-          "description": "Third floor inside elevator - facing outward"
-        }
-      ], 
-      "next_map": "wilson-bottom-floor", 
-      "description": "Third floor of the Wilson Center"
     }
   }, 
-  "start_map": "top-floor-wilson"
+  "start_map": "top-floor-wilson-improved"
 }
