@@ -15,9 +15,9 @@
         {
           "name": "outside-lab-balcony",
           "description": "A little away from the door so the robot can navigate out",
-          "x": 2.124,
-          "y": -8.388,
-          "euler_angle": 178
+          "x": 2.029,
+          "y": -7.975,
+          "euler_angle": 355
         },
         {
           "name": "second-floor-towards-elevator",

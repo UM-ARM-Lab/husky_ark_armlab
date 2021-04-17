@@ -24,9 +24,9 @@
           "description": "Second floor balcony towards hallway"
         }, 
         {
-          "y": -8.388, 
-          "x": 2.124, 
-          "euler_angle": 358, 
+          "y": -7.975, 
+          "x": 2.029, 
+          "euler_angle": 175, 
           "name": "outside-lab-balcony", 
           "description": "A little away from the door so the robot can navigate out"
         }, 
