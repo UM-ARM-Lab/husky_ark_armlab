@@ -2,11 +2,22 @@
 husky_ark_armlab
 ================
 
-This package is meant to be used with the Clearpath Autonomous Research Kit (ARK) and provides 
-additional autonomy functionality not provided by the ARK. Although the ARK GUI has map, waypoint, 
+This package is meant to be used with the Clearpath Autonomous Research Kit (ARK) and provides
+additional autonomy functionality not provided by the ARK. Although the ARK GUI has map, waypoint,
 and route creation, it only supports this for a single map. The GUI does not support switching maps,
 and all route data is erased for a previous map when a new map is created. To use routes that used
 multiple maps, I created this ROS package to interact with the ARK's ROS API.
+
+To see a video of this package being used to navigate autonomously between buildings,
+please see below.
+
+.. raw:: html
+
+    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+        <iframe src="https://www.youtube.com/embed/3S68QvfWEnQ" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+    </div>
+
+|
 
 Installation
 ------------
@@ -37,7 +48,7 @@ You should now source your workspace and you should be ready to run the package:
 Routes
 ------
 Routes are defined through a JSON file that defines a list of maps and which map to start on.
-Each map contains a list of waypoints and which map to switch to upon completion. An example 
+Each map contains a list of waypoints and which map to switch to upon completion. An example
 of a JSON route is shown below::
 
     {
@@ -66,7 +77,7 @@ of a JSON route is shown below::
         }
     }
 
-Waypoints are specified using X, Y, and rotation with respect to the z-axis. It is not necessary to specify the Z position 
+Waypoints are specified using X, Y, and rotation with respect to the z-axis. It is not necessary to specify the Z position
 because the ARK only supports 2D mapping.
 
 You can use the ARK GUI to find the XY, theta positions of the different waypoints.
@@ -75,12 +86,12 @@ navigate to. When you select a waypoint, its position and orientation will be di
 
 Route Tools
 -----------
-To speed up route creation, the package contains scripts to reverse an existing route, 
+To speed up route creation, the package contains scripts to reverse an existing route,
 validate a route, and simulate a route by printing out the order that waypoints will
-be visited. 
+be visited.
 
-Reversing a route is useful because the route only needed to be specified in 
-one direction, and the return route would be automatically generated (including rotating 
+Reversing a route is useful because the route only needed to be specified in
+one direction, and the return route would be automatically generated (including rotating
 poses by 180 degrees, reversing waypoint order, and reversing the order of maps). You can do this with::
 
     python src/husky_ark_armlab reverse_route.py -r ./config/initial-route.json -o ./config/reversed-route.json
@@ -111,23 +122,23 @@ Multi-Map Navigation
 To support reduce the accumulated drift over time and make maps easier to update, you should
 break your route into multiple smaller maps. Each map's final waypoint
 should correspond to the first waypoint in the following map. This allows chaining together
-multiple maps. 
+multiple maps.
 
 To make sure the ARK accurately localizes when starting a new map, the husky_ark_armlab node will
 provide the ARK with a starting pose, which is the first waypoint defined in a map.
 
-Multiple maps can be used to support navigation between floors of a building. The ARK 
+Multiple maps can be used to support navigation between floors of a building. The ARK
 (and most navigation packages) only supports 2D navigation. This means a map can not have multiple
 floors. To solve this, you should include an elevator in the map for a floor.
 
 The Husky should either began a map or end a map inside an elevator (when using an elevator).
 This allowed us to switch maps inside an elevator when the doors were closed. The Husky can then
-re-localize with respect to the new map once the next floor was reached and the elevator doors opened. 
+re-localize with respect to the new map once the next floor was reached and the elevator doors opened.
 When creating maps, you should erase elevator doors to allow the Husky to treat them as only a
-temporary obstacle. The Husky will wait outside the elevator until the doors opened, and then it 
-will proceed inside. 
+temporary obstacle. The Husky will wait outside the elevator until the doors opened, and then it
+will proceed inside.
 
-When choosing the location to switch maps (for start/end positions that weren't inside elevators), 
+When choosing the location to switch maps (for start/end positions that weren't inside elevators),
 you should choose a location where the Husky can localize well and can easily tell which direction
 it is facing (ex. switching maps between a set of double doors is not recommended because the ARK
 will not be able to tell which direction it is facing).
@@ -138,7 +149,7 @@ A major issue I faced during autonomous navigation was dealing with the sloped g
 The ARK would recognize sloped ground as an obstacle (as shown below). This made it very difficult
 to path plan up or down a sloped path.
 
-.. figure:: /_static/lidar-sloped-ground-figure.png
+.. figure:: https://github.com/EricWiener/husky-ark/blob/master/docs/_static/lidar-sloped-ground-figure.png?raw=true
       :alt: lidar-sloped-ground-figure
       :class: with-shadow
       :width: 400px
@@ -172,7 +183,7 @@ Launch files
 
    Optional Arguments
 
-   -  **map``** The map to start navigation from. This is useful for debugging.
+   -  **map** The map to start navigation from. This is useful for debugging.
    -  **waypoint** The waypoint number to start navigating from
       (zero-indexed)
 
@@ -182,10 +193,9 @@ Usage
 Run the main node with
 
 ::
-    
-    roslaunch husky_ark_armlab husky_ark_armlab.launch route:=<absolute path to route>
-    
-For example::
-    
-    roslaunch husky_ark_armlab husky_ark_armlab.launch route:=/home/eric/catkin_ws/src/husky-ark/config/robotics-to-wilson.json
 
+    roslaunch husky_ark_armlab husky_ark_armlab.launch route:=<absolute path to route>
+
+For example::
+
+    roslaunch husky_ark_armlab husky_ark_armlab.launch route:=/home/eric/catkin_ws/src/husky-ark/config/robotics-to-wilson.json

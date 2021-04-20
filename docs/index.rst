@@ -12,11 +12,10 @@ Contents
 
    Overview <readme>
    License <license>
-   Authors <authors>
-   Changelog <changelog>
    Module Reference <api/modules>
    ARK Installation <ark_installation>
-
+   Contributing <contributing>
+   Authors <authors>
 
 Indices and tables
 ==================
