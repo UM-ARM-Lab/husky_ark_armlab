@@ -166,7 +166,7 @@ include_directories(
 # )
 
 catkin_install_python(PROGRAMS
- src/husky_ark_armlab.py
+ src/usky_ark_armlab/husky_ark_armlab.py
  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
