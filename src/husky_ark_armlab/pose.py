@@ -38,13 +38,14 @@ class Pose:
             x (float): X position
             y (float): Y position
             euler_angle (float): euler angle with respect to z-axis
-            upper_lidar_threshold (float, optional): upper lidar threshold to apply after reaching this pose.
-                Defaults to 15.0.
+            upper_lidar_threshold (float, optional): upper lidar threshold
+                to apply after reaching this pose. Defaults to 15.0.
 
         Returns:
             Pose: a new Pose object
         """
-        # Convert to quaternion [x, y, z, w] from Euler angles specifying axes of rotation
+        # Convert to quaternion [x, y, z, w]
+        # from Euler angles specifying axes of rotation
         rotation_quaternion = euler_to_quaternion(0, 0, euler_angle, degrees=True)
         return Pose(
             name,
@@ -79,7 +80,9 @@ class Pose:
         return self.__str__()
 
     def __str__(self):
-        return "{}: X: {}, Y: {}, Z: {}, Quaternion: [{}, {}, {}, {}], Upper threshold: {}".format(
+        return "{}: X: {}, Y: {}, Z: {}, \
+            Quaternion: [{}, {}, {}, {}], \
+                Upper threshold: {}".format(
             self.name,
             self.x,
             self.y,

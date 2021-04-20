@@ -1,9 +1,8 @@
-import json
+import argparse
 import os
-import argparse
-import argparse
-from pose import Pose
+
 import yaml
+from pose import Pose
 
 
 def assert_key_exists(key, data_dict):
@@ -30,7 +29,8 @@ class Map:
             name (str): [description]
             map_dict (dict): [description]
             default_upper_lidar_threshold (float): default upper range for lidar scan
-            start_waypoint_index (int): the waypoint to start at for this map (will skip previous waypoints)
+            start_waypoint_index (int): the waypoint to start at for this map
+                (will skip previous waypoints)
         """
         self.name = name
 
@@ -82,10 +82,11 @@ class Map:
             print("Reached the end of the map: {}".format(self.name))
             assert (
                 False
-            ), "Map already complete. You should be checking is_route_complete() before moving to next waypoint."
+            ), "Map already complete. You should be checking \
+                is_route_complete() before moving to next waypoint."
 
-        # We start off with current_waypoint_idx = self.start_waypoint_index - 1, so this is okay
-        # for the first waypoint (no issue moving past it initially)
+        # We start off with current_waypoint_idx = self.start_waypoint_index - 1,
+        # so this is okay for the first waypoint (no issue moving past it initially)
         self.current_waypoint_idx += 1
         return self.waypoint_poses[self.current_waypoint_idx]
 
@@ -209,8 +210,8 @@ class Route:
         if self.dry_run:
             return
 
-        from ark_interface import ARK
         import rospy
+        from ark_interface import ARK
 
         # Load the initial map
         success = ARK.load_map(self.current_map.name)
@@ -227,8 +228,8 @@ class Route:
         if self.dry_run:
             return
 
-        from ark_interface import ARK
         import rospy
+        from ark_interface import ARK
 
         success = ARK.load_map(self.current_map.name)
 
@@ -253,8 +254,8 @@ class Route:
         # If we are starting a new map, we can signal to the ARK
         # where the Husky should start from
         if not self.dry_run and self.current_map.is_on_first_waypoint_of_map():
-            from ark_interface import ARK
             import rospy
+            from ark_interface import ARK
 
             ARK.set_pose(next_waypoint)
             rospy.loginfo("Set initial pose for map to {}".format(next_waypoint.name))

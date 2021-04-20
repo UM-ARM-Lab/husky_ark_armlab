@@ -1,5 +1,5 @@
 <launch>
-    <!-- 
+    <!--
           Source: https://github.com/IntelRealSense/realsense-ros/blob/development/realsense2_camera/launch/rs_rtabmap.launch
           NOTICE: Installation of rtabmap is required for using this launch file:
                   For installation type:
@@ -9,7 +9,7 @@
     <arg name="serial_no"    			  default=""/>
     <arg name="camera"                    default="D455"/>		<!-- Note: Replace with camera name -->
     <arg name="clip_distance"             default="-2"/>
-    
+
     <include file="$(find realsense2_camera)/launch/rs_camera.launch">
         <arg name="device_type"             value="$(arg device_type)"/>
         <arg name="serial_no"               value="$(arg serial_no)"/>
@@ -20,12 +20,12 @@
 
      <!--- Depth image to laser scan -->
     <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" >
-        <param name="scan_height" value="3"/> 
+        <param name="scan_height" value="3"/>
         <param name="output_frame_id" value="base_link"/>
         <remap from="image" to="/$(arg camera)/depth/image_rect_raw" />
     </node>
 
-    <!-- Transform from RealSense to base link 
+    <!-- Transform from RealSense to base link
         static_transform_publisher x y z qx qy qz qw frame_id child_frame_id
     -->
 

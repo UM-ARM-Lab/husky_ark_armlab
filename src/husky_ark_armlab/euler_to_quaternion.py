@@ -1,7 +1,7 @@
-from math import sin, cos, atan2, pi, sqrt, asin, acos
+from math import cos, pi, sin
 
-rad2deg = 180.0/pi
-deg2rad = pi/180
+rad2deg = 180.0 / pi
+deg2rad = pi / 180
 
 
 def euler_to_quaternion(roll, pitch, yaw, degrees=True):

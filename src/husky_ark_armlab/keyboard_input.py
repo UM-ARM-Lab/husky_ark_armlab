@@ -4,7 +4,8 @@ Works transparently on Windows and Posix (Linux, Mac OS X).  Doesn't work
 with IDLE.
 
 Original source: https://simondlevy.academic.wlu.edu/files/software/kbhit.py
-Stackoverflow source: https://stackoverflow.com/questions/2408560/python-nonblocking-console-input
+Stackoverflow source:
+    https://stackoverflow.com/questions/2408560/python-nonblocking-console-input
 """
 
 import os
@@ -16,9 +17,9 @@ if os.name == "nt":
 
 # Posix (Linux, OS X)
 else:
+    import atexit
     import sys
     import termios
-    import atexit
     from select import select
 
 
@@ -56,9 +57,6 @@ class KeyboardInput:
         """Returns a keyboard character after kbhit() has been called.
         Should not be called in the same program as getarrow().
         """
-
-        s = ""
-
         if os.name == "nt":
             return msvcrt.getch().decode("utf-8")
 

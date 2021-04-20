@@ -1,7 +1,8 @@
-import time
 import argparse
-from route_loader import Route
+import time
+
 from keyboard_input import KeyboardInput
+from route_loader import Route
 
 
 def pause(keyboard_input):

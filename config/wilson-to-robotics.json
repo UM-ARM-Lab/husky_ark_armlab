@@ -3,259 +3,259 @@
     "top-floor-robotics": {
       "route": [
         {
-          "y": 16.512, 
-          "x": -3.271, 
-          "euler_angle": 263, 
-          "name": "second-floor-inside-elevator", 
+          "y": 16.512,
+          "x": -3.271,
+          "euler_angle": 263,
+          "name": "second-floor-inside-elevator",
           "description": "Second floor waiting position for elevator"
-        }, 
+        },
         {
-          "y": 13.25, 
-          "x": -4.077, 
-          "euler_angle": 80, 
-          "name": "second-floor-elevator-waiting", 
+          "y": 13.25,
+          "x": -4.077,
+          "euler_angle": 80,
+          "name": "second-floor-elevator-waiting",
           "description": "Second floor waiting position for elevator"
-        }, 
+        },
         {
-          "y": -7.809, 
-          "x": -3.826, 
-          "euler_angle": 86, 
-          "name": "second-floor-towards-elevator", 
+          "y": -7.809,
+          "x": -3.826,
+          "euler_angle": 86,
+          "name": "second-floor-towards-elevator",
           "description": "Second floor balcony towards hallway"
-        }, 
+        },
         {
-          "y": -7.975, 
-          "x": 2.029, 
-          "euler_angle": 175, 
-          "name": "outside-lab-balcony", 
+          "y": -7.975,
+          "x": 2.029,
+          "euler_angle": 175,
+          "name": "outside-lab-balcony",
           "description": "A little away from the door so the robot can navigate out"
-        }, 
+        },
         {
-          "y": -0.001, 
-          "x": -0.121, 
-          "euler_angle": 357, 
-          "name": "origin", 
+          "y": -0.001,
+          "x": -0.121,
+          "euler_angle": 357,
+          "name": "origin",
           "description": "Starting location of the robot inside lab"
         }
-      ], 
-      "next_map": null, 
+      ],
+      "next_map": null,
       "description": "Second floor of the Robotics building"
-    }, 
+    },
     "bottom-floor": {
       "route": [
         {
-          "y": 12.594, 
-          "name": "bottom-floor-facing-doors", 
-          "x": -36.638, 
-          "euler_angle": 129, 
-          "skip": true, 
+          "y": 12.594,
+          "name": "bottom-floor-facing-doors",
+          "x": -36.638,
+          "euler_angle": 129,
+          "skip": true,
           "description": "Opening from atrium to elevator hallway"
-        }, 
+        },
         {
-          "y": -3.682, 
-          "name": "bottom-floor-atrium-hallway-opening", 
-          "x": -20.986, 
-          "euler_angle": 130, 
-          "skip": true, 
+          "y": -3.682,
+          "name": "bottom-floor-atrium-hallway-opening",
+          "x": -20.986,
+          "euler_angle": 130,
+          "skip": true,
           "description": "Opening from atrium to elevator hallway"
-        }, 
+        },
         {
-          "y": -2.85, 
-          "name": "bottom-floor-elevator-to-hallway", 
-          "x": -2.874, 
-          "euler_angle": 185, 
-          "skip": true, 
+          "y": -2.85,
+          "name": "bottom-floor-elevator-to-hallway",
+          "x": -2.874,
+          "euler_angle": 185,
+          "skip": true,
           "description": "Near the elevator facing towards the atrium"
-        }, 
+        },
         {
-          "y": 16.803, 
-          "x": -2.051, 
-          "euler_angle": 177, 
-          "name": "bottom-floor-outside-double-doors", 
+          "y": 16.803,
+          "x": -2.051,
+          "euler_angle": 177,
+          "name": "bottom-floor-outside-double-doors",
           "description": "Outside sets of side-doors"
-        }, 
+        },
         {
-          "y": 14.064, 
-          "x": -3.87, 
-          "euler_angle": 95, 
-          "name": "bottom-floor-between-side-doors", 
+          "y": 14.064,
+          "x": -3.87,
+          "euler_angle": 95,
+          "name": "bottom-floor-between-side-doors",
           "description": "Between sets of side-doors"
-        }, 
+        },
         {
-          "y": 9.265, 
-          "x": -3.858, 
-          "euler_angle": 96, 
-          "name": "bottom-floor-before-side-doors", 
+          "y": 9.265,
+          "x": -3.858,
+          "euler_angle": 96,
+          "name": "bottom-floor-before-side-doors",
           "description": "Facing the side double doors from inside the building"
-        }, 
+        },
         {
-          "y": -2.85, 
-          "x": -2.874, 
-          "euler_angle": 185, 
-          "name": "bottom-floor-elevator-to-hallway", 
+          "y": -2.85,
+          "x": -2.874,
+          "euler_angle": 185,
+          "name": "bottom-floor-elevator-to-hallway",
           "description": "Near the elevator facing towards the atrium"
-        }, 
+        },
         {
-          "y": 0.388, 
-          "x": 2.548, 
-          "euler_angle": 184, 
-          "name": "bottom-floor-inside-elevator", 
+          "y": 0.388,
+          "x": 2.548,
+          "euler_angle": 184,
+          "name": "bottom-floor-inside-elevator",
           "description": "Starting location of the robot"
         }
-      ], 
-      "next_map": "top-floor-robotics", 
+      ],
+      "next_map": "top-floor-robotics",
       "description": "First floor of the Robotics building"
-    }, 
+    },
     "top-floor-wilson-improved": {
-      "upper_scan_threshold": 5.0, 
+      "upper_scan_threshold": 5.0,
       "route": [
         {
-          "y": 0.895, 
-          "x": -22.389, 
-          "euler_angle": 175, 
-          "name": "wilson-third-floor-facing-roof-door", 
+          "y": 0.895,
+          "x": -22.389,
+          "euler_angle": 175,
+          "name": "wilson-third-floor-facing-roof-door",
           "description": "In front of door to stairs and roof access"
-        }, 
+        },
         {
-          "y": -0.521, 
-          "x": -10.101, 
-          "euler_angle": 176, 
-          "name": "wilson-third-floor-hallway-turn", 
+          "y": -0.521,
+          "x": -10.101,
+          "euler_angle": 176,
+          "name": "wilson-third-floor-hallway-turn",
           "description": "In the L shaped turn"
-        }, 
+        },
         {
-          "y": 7.213, 
-          "x": -8.016, 
-          "euler_angle": 263, 
-          "name": "wilson-third-floor-seating-to-door", 
+          "y": 7.213,
+          "x": -8.016,
+          "euler_angle": 263,
+          "name": "wilson-third-floor-seating-to-door",
           "description": "About to enter the L shaped hallway"
-        }, 
+        },
         {
-          "y": 6.572, 
-          "x": 0.199, 
-          "euler_angle": 175, 
-          "name": "wilson-third-floor-elevator-to-seating-area", 
+          "y": 6.572,
+          "x": 0.199,
+          "euler_angle": 175,
+          "name": "wilson-third-floor-elevator-to-seating-area",
           "description": "Outside of elevator and near seating area"
-        }, 
+        },
         {
-          "y": -0.047, 
-          "x": -0.052, 
-          "euler_angle": 356, 
-          "name": "wilson-third-floor-inside-elevator", 
+          "y": -0.047,
+          "x": -0.052,
+          "euler_angle": 356,
+          "name": "wilson-third-floor-inside-elevator",
           "description": "Third floor inside elevator - facing outward"
         }
-      ], 
-      "next_map": "wilson-bottom-floor", 
+      ],
+      "next_map": "wilson-bottom-floor",
       "description": "Third floor of the Wilson Center"
-    }, 
+    },
     "low-lidar-side-to-wilson": {
       "route": [
         {
-          "name": "wilson-sidewalk-facing-entrance", 
-          "upper_scan_threshold": 3.0, 
-          "euler_angle": 351, 
-          "y": 123.25, 
-          "x": 68.678, 
+          "name": "wilson-sidewalk-facing-entrance",
+          "upper_scan_threshold": 3.0,
+          "euler_angle": 351,
+          "y": 123.25,
+          "x": 68.678,
           "description": ""
-        }, 
+        },
         {
-          "euler_angle": 262, 
-          "name": "wilson-sidewalk-end-of-curve", 
-          "upper_scan_threshold": 3.0, 
-          "x": 69.434, 
-          "description": "", 
+          "euler_angle": 262,
+          "name": "wilson-sidewalk-end-of-curve",
+          "upper_scan_threshold": 3.0,
+          "x": 69.434,
+          "description": "",
           "y": 132.523
-        }, 
+        },
         {
-          "euler_angle": 314, 
-          "name": "wilson-sidewalk-start-of-curve", 
-          "upper_scan_threshold": 2.0, 
-          "x": 64.693, 
-          "description": "", 
+          "euler_angle": 314,
+          "name": "wilson-sidewalk-start-of-curve",
+          "upper_scan_threshold": 2.0,
+          "x": 64.693,
+          "description": "",
           "y": 138.967
-        }, 
+        },
         {
-          "euler_angle": 0, 
-          "name": "draper-dr-facing-sidewalk-ramp", 
-          "x": 46.562, 
-          "description": "", 
+          "euler_angle": 0,
+          "name": "draper-dr-facing-sidewalk-ramp",
+          "x": 46.562,
+          "description": "",
           "y": 140.706
-        }, 
+        },
         {
-          "y": 84.896, 
-          "x": 44.882, 
-          "euler_angle": 90, 
-          "name": "draper-dr-intersection", 
+          "y": 84.896,
+          "x": 44.882,
+          "euler_angle": 90,
+          "name": "draper-dr-intersection",
           "description": ""
-        }, 
+        },
         {
-          "y": 58.73, 
-          "x": 36.559, 
-          "euler_angle": 39, 
-          "name": "robotics-street-corner", 
+          "y": 58.73,
+          "x": 36.559,
+          "euler_angle": 39,
+          "name": "robotics-street-corner",
           "description": ""
-        }, 
+        },
         {
-          "y": 39.304, 
-          "x": 8.218, 
-          "euler_angle": 34, 
-          "name": "outside-robotics-front-doors-facing-street", 
+          "y": 39.304,
+          "x": 8.218,
+          "euler_angle": 34,
+          "name": "outside-robotics-front-doors-facing-street",
           "description": ""
-        }, 
+        },
         {
-          "y": 24.056, 
-          "x": 17.32, 
-          "euler_angle": 124, 
-          "name": "outside-robotics-curved-pathway-to-front-entrance", 
+          "y": 24.056,
+          "x": 17.32,
+          "euler_angle": 124,
+          "name": "outside-robotics-curved-pathway-to-front-entrance",
           "description": ""
-        }, 
+        },
         {
-          "y": -1.866, 
-          "x": 3.329, 
-          "euler_angle": 88, 
-          "name": "outside-robotics-side-doors", 
+          "y": -1.866,
+          "x": 3.329,
+          "euler_angle": 88,
+          "name": "outside-robotics-side-doors",
           "description": ""
         }
-      ], 
-      "next_map": "bottom-floor", 
+      ],
+      "next_map": "bottom-floor",
       "description": "Outdoor navigation from side-doors of Robotics building to Wilson Center"
-    }, 
+    },
     "wilson-bottom-floor": {
       "route": [
         {
-          "name": "wilson-bottom-inside-elevator", 
-          "upper_scan_threshold": 3.0, 
-          "euler_angle": 342, 
-          "y": 26.268, 
-          "x": -5.345, 
+          "name": "wilson-bottom-inside-elevator",
+          "upper_scan_threshold": 3.0,
+          "euler_angle": 342,
+          "y": 26.268,
+          "x": -5.345,
           "description": "Inside the elevator on the bottom floor"
-        }, 
+        },
         {
-          "euler_angle": 226, 
-          "name": "wilson-bottom-floor-near-elevator", 
-          "x": -2.683, 
-          "description": "Near elevator bottom floor", 
+          "euler_angle": 226,
+          "name": "wilson-bottom-floor-near-elevator",
+          "x": -2.683,
+          "description": "Near elevator bottom floor",
           "y": 28.099
-        }, 
+        },
         {
-          "name": "wilson-top-of-ramp", 
-          "upper_scan_threshold": 3.0, 
-          "euler_angle": 104, 
-          "y": 20.788, 
-          "x": 3.437, 
+          "name": "wilson-top-of-ramp",
+          "upper_scan_threshold": 3.0,
+          "euler_angle": 104,
+          "y": 20.788,
+          "x": 3.437,
           "description": "Top of bottom floor ramp Wilson Center"
-        }, 
+        },
         {
-          "euler_angle": 82, 
-          "name": "wilson-outside-facing-doors", 
-          "x": 0.347, 
-          "description": "Outside the Wilson center facing towards doors", 
+          "euler_angle": 82,
+          "name": "wilson-outside-facing-doors",
+          "x": 0.347,
+          "description": "Outside the Wilson center facing towards doors",
           "y": 1.455
         }
-      ], 
-      "next_map": "low-lidar-side-to-wilson", 
+      ],
+      "next_map": "low-lidar-side-to-wilson",
       "description": "First floor of the Wilson Center (from back entrance)"
     }
-  }, 
+  },
   "start_map": "top-floor-wilson-improved"
 }

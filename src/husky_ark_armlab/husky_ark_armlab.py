@@ -1,20 +1,20 @@
 #!/usr/bin/env python
-from ark_bridge.msg import SendGoal, Empty, GoalStatusArray
-import actionlib_msgs
-import rospy
 import argparse
-from route_loader import Route
-from pose import Pose
+
+import rospy
+from ark_bridge.msg import Empty, GoalStatusArray, SendGoal
 from ark_interface import ARK
 from keyboard_input import KeyboardInput
 from laser_filter_adjuster import LaserFilterAdjuster
+from route_loader import Route
 
 tracking_goal = True
 
 
 def path_planner_status_callback(msg):
-    """This keeps track of the ARK's status and if it is tracking a goal or awaiting a new goal.
-    The ark will maintain a list of current objectives and their status using this topic.
+    """This keeps track of the ARK's status and if it is tracking a goal or
+    awaiting a new goal. The ark will maintain a list of current objectives
+    and their status using this topic.
 
     Args:
         msg (GoalStatusArray): [description]

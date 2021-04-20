@@ -1,5 +1,6 @@
-from husky_ark_armlab.euler_to_quaternion import euler_to_quaternion
 import pytest
+
+from husky_ark_armlab.euler_to_quaternion import euler_to_quaternion
 
 
 def test_euler_to_quaternion():

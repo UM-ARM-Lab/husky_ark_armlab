@@ -1,6 +1,7 @@
 import argparse
-from route_loader import Route
 import json
+
+from route_loader import Route
 
 
 def main(route_json_path, output_json_path):
@@ -32,16 +33,19 @@ def main(route_json_path, output_json_path):
         single_map["route"].reverse()
 
         # Update the lidar thresholds
-        # the lidar thresholds specify what to set the threshold to once a certain pose is reached
-        # since we are now moving in reverse, we need to shift these thresholds to the pose that
-        # comes after it (so when moving in reverse, the same path will have the same threshold)
-        # Ex: you set threshold to 5 when you reach pose A. The path from A->B will have threshold 5
-        # need to update so when moving in reverse, B->A will have threshold 5.
+        # the lidar thresholds specify what to set the threshold to once a
+        # certain pose is reached since we are now moving in reverse, we
+        # need to shift these thresholds to the pose that comes after it
+        # (so when moving in reverse, the same path will have the same threshold)
+        # Ex: you set threshold to 5 when you reach pose A. The path from
+        # A->B will have threshold 5 need to update so when moving in reverse,
+        # B->A will have threshold 5.
         for idx, waypoint in enumerate(single_map["route"]):
             if idx == 0:
                 # This corresponds to the final pose in the ORIGINAL map (non-reversed)
-                # Doesn't make sense to set a threshold for the final pose in a map because it won't navigate
-                # to anything. The threshold should be set for the first waypoint in the next map
+                # Doesn't make sense to set a threshold for the final pose in a map
+                # because it won't navigate to anything.
+                # The threshold should be set for the first waypoint in the next map
                 continue
 
             if "upper_scan_threshold" in waypoint:
