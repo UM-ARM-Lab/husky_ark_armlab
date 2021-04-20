@@ -13,6 +13,8 @@ Contents
    Overview <readme>
    License <license>
    Module Reference <api/modules>
+   ARK Quick Reference <ark_quick_reference>
+   ARK Mapping <ark_mapping>
    ARK Installation <ark_installation>
    Contributing <contributing>
    Authors <authors>

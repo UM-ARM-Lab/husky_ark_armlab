@@ -58,9 +58,6 @@ Create the ARK bridge nodes
    cd ~/ark_ws
    catkin_make
 
-Using the ARK on the Husky (first-time setup only)
-==================================================
-
 Establishing connection
 -----------------------
 
@@ -78,15 +75,6 @@ terminal):
    rostopic echo /ark_bridge/clock_echo
 
 You should see a new timestamp about every second.
-
-Diagonistics
-------------
-
-You can look at the status of the ARK with:
-
-.. code:: bash
-
-   rosrun rqt_robot_monitor rqt_robot_monitor
 
 Configure ARK
 -------------
