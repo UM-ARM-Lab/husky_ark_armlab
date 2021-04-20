@@ -9,7 +9,7 @@ and all route data is erased for a previous map when a new map is created. To us
 multiple maps, I created this ROS package to interact with the ARK's ROS API.
 
 To see a video of this package being used to navigate autonomously between buildings,
-please see below.
+please see `here <https://youtu.be/3S68QvfWEnQ>`_.
 
 .. raw:: html
 
