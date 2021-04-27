@@ -79,7 +79,7 @@ difficult for the ARK to avoid these areas reliably.
 You can mitigate this issue by having the Husky navigate in the street (vs. on
 the sidewalk), so the curb would appear as an obstacle.
 
-.. figure:: https://github.com/EricWiener/husky-ark/blob/master/docs/_static/outdoor-map-no-objects.png?raw=true
+.. figure:: https://github.com/UM-ARM-Lab/husky_ark_armlab/blob/master/docs/_static/outdoor-map-no-objects.png?raw=true
    :alt: outdoor-map-no-objects
 
    A map of an outdoor region without objects to localize with.

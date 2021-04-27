@@ -43,7 +43,7 @@ Clone the repository
    page. This creates a copy of the code under your account on the GitHub server.
 #. Clone this copy to your local disk::
 
-    git clone git@github.com:YourLogin/husky-ark.git husky_ark_armlab
+    git clone git@github.com:YourLogin/husky_ark_armlab.git husky_ark_armlab
     cd husky_ark_armlab
 
 #. You should run::
@@ -144,12 +144,12 @@ venv. For example::
     .venv/bin/tox -e all
 
 
-.. _Cirrus-CI: https://cirrus-ci.com/github/EricWiener/husky-ark
+.. _Cirrus-CI: https://cirrus-ci.com/github/UM-ARM-Lab/husky_ark_armlab
 .. _PyPI: https://pypi.python.org/
-.. _project repository: https://github.com/EricWiener/husky-ark
+.. _project repository: https://github.com/UM-ARM-Lab/husky_ark_armlab
 .. _Git: http://git-scm.com/
 .. _Miniconda: https://conda.io/miniconda.html
-.. _issue tracker: https://github.com/EricWiener/husky-ark/issues
+.. _issue tracker: https://github.com/UM-ARM-Lab/husky_ark_armlab/issues
 .. _Create a Gitub account: https://github.com/signup/free
 .. _creating a PR: https://help.github.com/articles/creating-a-pull-request/
 .. _tox: https://tox.readthedocs.io/

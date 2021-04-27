@@ -35,7 +35,7 @@ you installed the ARK in and then you should create a new workspace. Ex::
 You can then install the husky_ark_armlab package and dependencies::
 
     cd ~/catkin_ws/src/
-    git clone https://github.com/EricWiener/husky-ark husky_ark_armlab
+    git clone https://github.com/UM-ARM-Lab/husky_ark_armlab.git husky_ark_armlab
     git clone --single-branch --branch feat/range-filter-dynamic-reconfigure https://github.com/EricWiener/laser_filters.git
     cd ~/catkin_ws
     rosdep install --from-paths . --ignore-src
@@ -149,7 +149,7 @@ A major issue I faced during autonomous navigation was dealing with the sloped g
 The ARK would recognize sloped ground as an obstacle (as shown below). This made it very difficult
 to path plan up or down a sloped path.
 
-.. figure:: https://github.com/EricWiener/husky-ark/blob/master/docs/_static/lidar-sloped-ground-figure.png?raw=true
+.. figure:: https://github.com/UM-ARM-Lab/husky_ark_armlab/blob/master/docs/_static/lidar-sloped-ground-figure.png?raw=true
       :alt: lidar-sloped-ground-figure
       :class: with-shadow
       :width: 400px
