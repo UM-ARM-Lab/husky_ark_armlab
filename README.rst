@@ -36,7 +36,7 @@ You can then install the husky_ark_armlab package and dependencies::
 
     cd ~/catkin_ws/src/
     git clone https://github.com/UM-ARM-Lab/husky_ark_armlab.git husky_ark_armlab
-    git clone --single-branch --branch feat/range-filter-dynamic-reconfigure https://github.com/EricWiener/laser_filters.git
+    git clone --single-branch --branch kinetic-devel https://github.com/ros-perception/laser_filters.git
     cd ~/catkin_ws
     rosdep install --from-paths . --ignore-src
     catkin build
